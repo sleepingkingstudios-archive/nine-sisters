@@ -1,0 +1,20 @@
+database: # postgres
+  help: |
+    http://www.postgresql.org/docs/9.1/static/index.html
+  client: |
+    Use the "psql" command for an interactive shell, with these options:
+    - "-U nine_sisters"     # owner of the database
+    - "nine_sisters_#{env}" # database name
+    
+    Type "\q" in the shell to quit, or "\h" for help.
+  server: |
+    Use the "pg_ctl" command to control the server.
+    
+    Available commands:
+    pg_ctl start   # starts the server
+    pg_ctl stop    # stops the server
+    pg_ctl restart # restarts the server
+    pg_ctl --help
+environments:
+  production:
+    fierce-mist-4639.heroku.com
