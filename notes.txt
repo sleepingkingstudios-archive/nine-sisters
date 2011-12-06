@@ -17,4 +17,10 @@ database: # postgres
     pg_ctl --help
 environments:
   production:
-    fierce-mist-4639.heroku.com
+    http://fierce-mist-4639.herokuapp.com/
+github: https://github.com/sleepingkingstudios/nine-sisters
+heroku:
+  help:
+    - http://devcenter.heroku.com/articles/rails3
+    - http://devcenter.heroku.com/articles/rails31_heroku_cedar
+    - http://devcenter.heroku.com/articles/multiple-environments
