@@ -1,5 +1,7 @@
 NineSisters::Application.routes.draw do
-  root :to => "home#index"
+  root :to => "home#under-construction"
+  
+  # get "index" => "home#index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

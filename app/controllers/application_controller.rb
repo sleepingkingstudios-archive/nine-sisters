@@ -1,6 +1,10 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
+  before_filter do
+    @mobile_device = mobile?
+  end # before_filter
+  
   def mobile_agent?
     request.user_agent =~ /Mobile|webOS/
   end # method mobile_agent
