@@ -1,0 +1,24 @@
+-# app/views/users/_form.html.haml
+
+- user ||= @user
+
+= form_for user, :url => user_path do |form|
+  - if user.errors.any?
+    - messages = user.errors.full_messages
+    - messages.delete_if { |message| message =~ /password digest/i }
+    %h2 #{ pluralize(messages.count, "error") } prevented this user from being created:
+    %ul
+      - messages.each do |message|
+        %li= message
+  
+  %p
+    = form.label :email
+    = form.text_field :email
+  %p
+    = form.label :password
+    = form.password_field :password
+  %p
+    = form.label :password_confirmation
+    = form.password_field :password_confirmation
+  %p
+    = form.submit

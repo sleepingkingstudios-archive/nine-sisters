@@ -1,2 +1,11 @@
+- content_for :javascripts do
+  :javascript
+    konami.code = function() {
+      jQuery.colorbox({
+        // html: jQuery("<div>").load("#{new_user_path}")
+        href: "#{new_user_path}"
+      }); // end colorbox
+    } // end anonymous function
+
 %h1 Home#index
 %p Find me in app/views/home/index.html.haml

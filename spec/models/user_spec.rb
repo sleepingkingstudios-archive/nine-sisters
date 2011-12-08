@@ -4,7 +4,7 @@ require 'active_record'
 describe User do
   before :each do
     @params = {
-      :email => "test_email",
+      :email => "test_email@test.com",
       :password => "test_password",
       :password_confirmation => "test_password",
     } # end params
@@ -12,6 +12,7 @@ describe User do
   
   context "creation and validation:" do
     it { expect { described_class.create! @params.clone.update(:email => nil) }.to raise_error ActiveRecord::RecordInvalid }
+    it { expect { described_class.create! @params.clone.update(:email => "invalid_email") }.to raise_error ActiveRecord::RecordInvalid }
     it { expect { described_class.create! @params.clone.update(:password => nil) }.to raise_error ActiveRecord::RecordInvalid }
     it { expect { described_class.create! @params.clone.update(:password_confirmation => nil) }.to raise_error ActiveRecord::RecordInvalid }
     it { expect { described_class.create! @params.clone.update(:password_confirmation => "fake_password") }.to raise_error ActiveRecord::RecordInvalid }
@@ -41,6 +42,4 @@ describe User do
     it { subject.authenticate("fake_password").should be false }
     it { subject.authenticate(nil).should be false }
   end # context
-  
-  pending "add some examples to (or delete) #{__FILE__}"
 end # describe User

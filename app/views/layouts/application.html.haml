@@ -3,7 +3,11 @@
   %head
     %title Sleeping King Studios
     = stylesheet_link_tag :application
+    = yield :stylesheets
+    
     = javascript_include_tag :application
+    = yield :javascripts
+    
     = csrf_meta_tags
     
     - if @mobile_device

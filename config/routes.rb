@@ -1,7 +1,9 @@
 NineSisters::Application.routes.draw do
   root :to => "home#under-construction"
   
-  # get "index" => "home#index"
+  get "index" => "home#index"
+  
+  resource :user, :only => %w(create new)
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
