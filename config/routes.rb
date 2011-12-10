@@ -4,6 +4,7 @@ NineSisters::Application.routes.draw do
   get "index" => "home#index"
   
   resource :user, :only => %w(create new)
+  resource :session, :only => %w(create destroy new)
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

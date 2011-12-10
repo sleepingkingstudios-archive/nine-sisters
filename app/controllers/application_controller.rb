@@ -1,9 +1,10 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
-  before_filter do
-    @mobile_device = mobile?
-  end # before_filter
+  def current_user
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+  end # method current_user
+  helper_method :current_user
   
   def mobile_agent?
     request.user_agent =~ /Mobile|webOS/
@@ -19,4 +20,5 @@ class ApplicationController < ActionController::Base
       mobile_agent?
     end # case
   end # method mobile?
+  helper_method :mobile?
 end # controller ApplicationController

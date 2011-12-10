@@ -14,9 +14,9 @@ class UsersController < ApplicationController
   def new
     @user = User.new
     if request.xhr?
-      User.first.nil? ? render( :layout => false ) : render( :nothing )
+      User.first.nil? ? render( :layout => false ) : redirect_to(new_session_path)
     else
-      # redirect_to :root and return unless request.xhr?
+      redirect_to(new_session_path) and return unless User.first.nil?
     end # if-else
   end # action new
 end # controller Users
