@@ -4,6 +4,11 @@
 / %p
 /   Find me in app/views/home/under-construction.html.haml
 
+= content_for :stylesheets do
+  :css
+    body #wrapper > nav { display: none; }
+    body #wrapper > section { width: 940px; }
+
 %div{ :style => "margin: 50px 150px"}
   %h1 Important Notice
   %p

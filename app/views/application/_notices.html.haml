@@ -1,0 +1,18 @@
+-# app/views/layouts/_notices.html.haml
+
+/ %h2 Layouts#notices
+/ %p Find me in app/views/layouts/_notices.html.haml
+
+- %w(error warning notice).map(&:intern).each do |key|
+  - unless flash[key].nil? || flash[key].empty?
+    %div{ :class => "#{key}-box" }
+      - if flash[key].count == 1
+        %p
+          %strong.label #{key.to_s.capitalize}:
+          = flash[key].first
+      - else
+        %p
+          %strong.label #{key.to_s.capitalize}:
+        %ul
+          - flash[key].each do |message|
+            %li= message

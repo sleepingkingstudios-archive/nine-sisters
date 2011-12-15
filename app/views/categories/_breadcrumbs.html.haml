@@ -1,0 +1,10 @@
+-# app/views/categories/_breadcrumbs.html.haml
+
+%p
+  = link_to "Back to Home", "/index"
+  = link_to "Back to Categories", categories_path, :class => :apple
+  - unless @category.nil?
+    - @category.ancestors.reverse.push(@category).each do |category|
+      = link_to category.title, category, :class => :apple
+
+%h5.tagline Hic Iacet Arthurus, Rex Quondam, Rexque Futuris

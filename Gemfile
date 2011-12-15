@@ -16,6 +16,8 @@ gem 'haml'
 gem 'haml-rails'
 gem 'jquery-rails'
 
+gem 'acts_as_sluggable', :git => 'git@github.com:sleepingkingstudios/acts_as_sluggable.git'
+
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'
 
@@ -24,6 +26,5 @@ group :test, :development do
 end # group :test, :development
 
 group :test do
-  # Pretty printed test output
-  gem 'turn', :require => false
+  gem "factory_girl_rails"
 end # group :test

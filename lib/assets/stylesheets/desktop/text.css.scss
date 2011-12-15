@@ -7,7 +7,7 @@
  *  Headings  */
 
 .base-heading {
-  margin: 20px 0;
+  margin: 0;
   
   font-weight: bold;
   
@@ -52,6 +52,8 @@ h5 {
 p {
   font-size:   $body_font_size;
   line-height: $body_line_height;
+  
+  margin: 0 0 20px;
 } // p
 
 /*************
@@ -63,6 +65,30 @@ a {
 
   &:hover { text-decoration: underline; }
 } // end a
+
+/***********
+ *  Lists  */
+
+ul {
+  margin: 0 0 20px;
+  padding: 0;
+  
+  list-style-position: outside;
+  
+  li {
+    margin-left: 20px;
+    
+    ul {
+      margin: 0;
+    } // ul li ul
+    
+    &.apple {
+      margin-left: 0;
+      
+      list-style-type: none;
+    } // ul li.apple
+  } // ul li
+} ul
 
 /************
  *  Tables  */
@@ -117,12 +143,16 @@ input {
 /*********************
  *  Text Decoration  */
 
+body {
+  &.day .apple { background-image: image_url("apple_color_day_small.png"); }
+  &.night .apple { background-image: image_url("apple_color_night_small.png"); }
+} // body
+
 .apple {
   display: inline-block;
   
   padding-left: 20px;
   background: {
-    image: url(image_path("apple.png"));
     position: 0 -2px;
     repeat: no-repeat;
   };
@@ -132,19 +162,39 @@ input {
   margin: 20px 0;
   border-style: solid;
   border-width: 2px;
-  padding: 8px;
+  padding: 10px 8px 6px;
   
-  :first-child {
+  p, ul { margin: 0; }
+  
+  > :first-child {
     margin-top: 0;
-  } // @mixin notice-box :first-child
+  } // @mixin notice-box > :first-child
   
-  :last-child {
+  > :last-child {
     margin-bottom: 0;
-  } // @mixin notice-box :last-child
+  } // @mixin notice-box > :last-child
 } // @mixin notice-box
+
+.error-box {
+  @include notice-box;
+  
+  border-color: $red;
+  
+  strong.label { color: $red; }
+} // .error-box
 
 .warning-box {
   @include notice-box;
   
-  border-color: $red;
+  border-color: $yellow;
+  
+  strong.label { color: $yellow; }
+} // .warning-box
+
+.notice-box {
+  @include notice-box;
+  
+  border-color: $green;
+  
+  strong.label { color: $green; }
 } // .warning-box

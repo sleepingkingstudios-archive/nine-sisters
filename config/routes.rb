@@ -5,6 +5,8 @@ NineSisters::Application.routes.draw do
   
   resource :user, :only => %w(create new)
   resource :session, :only => %w(create destroy new)
+  
+  resources :categories, :only => %w(index show)
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

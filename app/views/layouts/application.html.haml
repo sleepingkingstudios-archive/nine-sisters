@@ -28,9 +28,12 @@
     
     %footer#page-footer
       #footer-container
-        %h5.tagline Presented by Sleeping King Studios
+        - unless (content = (yield :page_footer)).empty?
+          = content
+        - else
+          %h5.tagline Hic Iacet Arthurus, Rex Quondam, Rexque Futuris
     
     :javascript
       var height = jQuery('#page-footer').height();
       jQuery('#fake-footer').height(height);
-      jQuery('#wrapper').css('margin-bottom', -height + 'px
+      jQuery('#wrapper').css('margin-bottom', -height + 'px');

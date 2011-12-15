@@ -1,0 +1,26 @@
+-# app/views/categories/index.html.haml
+
+/ %h1 Categories#index
+/ %p Find me in app/views/categories/index.html.haml
+
+%h1 Categories
+
+= render "notices"
+
+%p= link_to "Create Category", nil, :class => :apple
+
+%p
+  There are currently
+  = pluralize(0, "article")
+  in
+  #{pluralize(Category.count, "category")}.
+
+%ul
+  - Category.top_level.each do |category|
+    = nested_category_list_item(category)
+
+%p= link_to "Back to Home", "/index", :class => :apple
+
+- content_for :page_footer do
+  %p= link_to "Back to Home", "/index", :class => :apple
+  %h5.tagline Hic Iacet Arthurus, Rex Quondam, Rexque Futuris

@@ -1,6 +1,11 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
+  def append_flash(key, message, persist = false)
+    logger.info "append_flash(): key = #{key}, message = #{message}, persist = #{persist}"
+    ((persist ? flash : flash.now)[key] ||= Array.new) << message
+  end # method append_flash
+  
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end # method current_user
