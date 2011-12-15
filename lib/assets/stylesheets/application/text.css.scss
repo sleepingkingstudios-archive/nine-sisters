@@ -1,8 +1,10 @@
-/*  app/assets/stylesheets/application/text.css.scss  */
+/*  lib/assets/stylesheets/application/text.css.scss  */
 
 @import '../solarized/colours';
 
 body {
+  font-family: "Constantia", "Times New Roman", "Times", sans-serif;
+  
   &.day {
     color: $base00;
     

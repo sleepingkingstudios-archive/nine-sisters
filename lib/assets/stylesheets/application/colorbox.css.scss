@@ -34,9 +34,9 @@
     #cboxLoadedContent {
       padding:20px;
       
-      :first-child { margin-top: 0px; }
-      :last-child { margin-bottom: 0px; }
-    }
+      > :first-child { margin-top: 0px; }
+      > :last-child { margin-bottom: 0px; }
+    } // #colorbox #cboxContent #cboxLoadedContent
     #cboxTitle { position:absolute; top:-22px; left:0; }
     #cboxCurrent { position:absolute; top:-22px; right:205px; text-indent:-9999px; }
     #cboxSlideshow, #cboxPrevious, #cboxNext, #cboxClose {

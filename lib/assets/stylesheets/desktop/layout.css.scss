@@ -1,0 +1,84 @@
+/*  lib/assets/stylesheets/desktop/layout.css.scss  */
+
+@import './dimensions';
+@import '../solarized/colours';
+
+html { height: 100%; }
+
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  
+  &.day {
+    background-color: $base3;
+    
+    #wrapper {
+      background-image: image_url("background-tree-day.png");
+      background-position: center center;
+      background-repeat: no-repeat;
+    } // body.day #wrapper
+  } // body.day
+  
+  &.night {
+    background-color: $base03;
+    
+    #wrapper {
+      background-image: image_url("background-tree-night.png");
+      background-position: center center;
+      background-repeat: no-repeat;
+    } // body.night #wrapper
+  } // body.night
+  
+  #wrapper {
+    width: $page_width;
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -4em;
+    
+    > header {
+      padding-top: 10px;
+      
+      h1 {
+        margin: 0;
+
+        font-size:   0.75 * ($h1_line_height + 10);
+        line-height: $h1_line_height + 5;
+        text-align: center;
+      } // end body #wrapper > header h1
+    } // end body #wrapper > header
+    
+    > nav {
+      float: left;
+
+      width: 300px;
+      margin-left: 20px;
+    } // end body #wrapper > nav
+    
+    > section {
+      position: relative;
+      float: left;
+
+      width: 620px;
+      margin: 0px;
+    } // end body #wrapper > section
+  } // #wrapper
+  
+  > footer {
+    width: $page_width;
+    margin: 0 auto;
+
+    text-align: center;
+
+    #footer-container {
+      margin: 0;
+      padding: 10px;
+
+      .tagline {
+        margin: 0;
+      }
+    } // end body > footer #footer-container
+  } // end body > footer
+} // body

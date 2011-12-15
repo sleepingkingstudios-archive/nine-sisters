@@ -12,12 +12,25 @@
     = csrf_meta_tags
     
   %body.day
-    #header
-      %h1 Sleeping King Studios
+    #wrapper
+      %header#page-header
+        %h1 Sleeping King Studios
       
-    #body
-      #navigation
-      
-      = yield
-      
-    #footer
+      %section#main-section
+        = yield
+        
+      %nav#primary-nav
+        %h2 Navigation
+
+      %br{:style => "clear: both;"}
+    
+      #fake-footer &nbsp;
+    
+    %footer#page-footer
+      #footer-container
+        %h5.tagline Presented by Sleeping King Studios
+    
+    :javascript
+      var height = jQuery('#page-footer').height();
+      jQuery('#fake-footer').height(height);
+      jQuery('#wrapper').css('margin-bottom', -height + 'px
