@@ -4,7 +4,8 @@ class SessionsController < ApplicationController
     user = User.find_by_email(params[:email])
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect_to root_url
+      append_flash :notice, "You have successfully logged in as #{params[:email]}.", true
+      redirect_to "/index"
     else
       render :action => "new"
     end # if-else
@@ -13,7 +14,8 @@ class SessionsController < ApplicationController
   # DELETE /session
   def destroy
     session[:user_id] = nil
-    redirect_to root_url
+    append_flash :notice, "You have successfully logged out.", true
+    redirect_to "/index"
   end # action destroy
   
   # GET /session/new

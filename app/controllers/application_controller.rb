@@ -6,11 +6,6 @@ class ApplicationController < ActionController::Base
     ((persist ? flash : flash.now)[key] ||= Array.new) << message
   end # method append_flash
   
-  def current_user
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]
-  end # method current_user
-  helper_method :current_user
-  
   def mobile_agent?
     request.user_agent =~ /Mobile|webOS/
   end # method mobile_agent
@@ -26,4 +21,24 @@ class ApplicationController < ActionController::Base
     end # case
   end # method mobile?
   helper_method :mobile?
+
+  #####################
+  # User Authentication
+  
+  def current_user
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+  end # method current_user
+  helper_method :current_user
+  
+  def authenticate_user(params = {})
+    options = { :redirect => "/index" }
+    options.update(params) if params.is_a? Hash
+    
+    # check for specific permissions here
+    
+    if current_user.nil?
+      append_flash :error, "You do not have permission to access that service.", true
+      redirect_to options[:redirect] and return
+    end # if
+  end # method authenticate_user
 end # controller ApplicationController

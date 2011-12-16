@@ -56,6 +56,10 @@ body {
 
       width: 300px;
       margin-left: 20px;
+      
+      > h2:first-child {
+        line-height: $h1_line_height;
+      } // body #wrapper > nav > h2:first-child
     } // end body #wrapper > nav
     
     > section {

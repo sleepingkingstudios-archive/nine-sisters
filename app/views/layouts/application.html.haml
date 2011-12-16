@@ -7,6 +7,14 @@
     = yield :stylesheets
     
     = javascript_include_tag :application
+    :javascript
+      jQuery(document).ready(function(){
+        jQuery('.log-in-link').click(function(event){
+          jQuery.colorbox({ href: '#{new_session_path}' });
+          event.preventDefault();
+        }); // end click
+      }); // end document.ready
+      
     = yield :javascripts
     
     = csrf_meta_tags
@@ -21,6 +29,18 @@
         
       %nav#primary-nav
         %h2 Navigation
+        
+        %h3= link_to "Categories", categories_path
+        %ul
+          - Category.top_level.each do |category|
+            %li.apple
+              = link_to category.title, category
+        
+        %p
+          - unless current_user.nil?
+            You are currently logged in as #{current_user.email}.
+            %br
+            = link_to "Log Out", session_path, :method => :delete, :class => :apple
 
       %br{:style => "clear: both;"}
     

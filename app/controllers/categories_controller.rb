@@ -1,8 +1,15 @@
 class CategoriesController < ApplicationController
+  before_filter :authenticate_user, :except => %w(index show)
+  
   # GET /categories
   def index
     @categories = Category.all
   end # action index
+  
+  # GET /categories/new
+  def new
+    @category = Category.new params[:category]
+  end # action new
   
   # GET /categories/:id
   # GET /categories/:slug

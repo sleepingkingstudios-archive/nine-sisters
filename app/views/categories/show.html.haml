@@ -7,7 +7,8 @@
 
 = render 'notices'
 
-%p= link_to "Update Category", nil, :class => :apple
+- unless current_user.nil?
+  %p= link_to "Update Category", nil, :class => :apple
 
 %p
   %strong Title:
@@ -18,7 +19,10 @@
   = @category.parent ? link_to(@category.parent.title, @category.parent) : "None"
 
 %h2 Sub-Categories
-%p= link_to "Create Category", nil, :class => :apple
+
+- unless current_user.nil?
+  %p= link_to "Create Category", { :action => :new, :controller => :categories, :category => { :parent_id => @category.id } }, :class => :apple
+
 %p.no-margin
   There #{@category.children.count == 1 ? "is" : "are"}
   #{pluralize @category.children.count, "category"} under #{@category.title}.
@@ -31,7 +35,10 @@
   %br
   
 %h2 Articles
-%p= link_to "Create Article", nil, :class => :apple
+
+- unless current_user.nil?
+  %p= link_to "Create Article", nil, :class => :apple
+
 %p.no-margin
   There #{[].count == 1 ? "is" : "are"}
   #{pluralize [].count, "article"} under #{@category.title}.

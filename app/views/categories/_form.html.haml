@@ -1,0 +1,22 @@
+-# app/views/categories/_form.html.haml
+
+%h2 Categories#form
+%p Find me in app/views/categories/_form.html.haml
+
+= form_for @category do |form|
+  %p
+    = form.label :parent_id, "Parent Category:"
+    = form.select :parent_id, options_for_select([[]] + Category.all.map { |category| [category.title, category.id] }, params[:category][:parent_id])
+    -# = form.text_field :parent_id
+    
+    %br
+    
+    = form.label :title, "Title:"
+    = form.text_field :title
+    %br
+    
+    = form.label :slug, "Slug:"
+    = form.text_field :slug, :disabled => :true
+    
+  %p
+    = form.submit
