@@ -3,6 +3,10 @@ NineSisters::Application.routes.draw do
   
   get "index" => "home#index"
   
+  namespace :admin do
+    resources :settings, :only => %w(create index)
+  end # namespace
+  
   resource :user, :only => %w(create new)
   resource :session, :only => %w(create destroy new)
   

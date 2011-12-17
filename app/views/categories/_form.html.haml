@@ -6,7 +6,7 @@
 = form_for @category do |form|
   %p
     = form.label :parent_id, "Parent Category:"
-    = form.select :parent_id, options_for_select([[]] + Category.all.map { |category| [category.title, category.id] }, params[:category][:parent_id])
+    = form.select :parent_id, options_for_select([[]] + Category.all.map { |category| [category.title, category.id] }, params[:category] ? params[:category][:parent_id] : nil)
     -# = form.text_field :parent_id
     
     %br

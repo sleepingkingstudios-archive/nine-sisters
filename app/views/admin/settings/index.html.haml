@@ -1,0 +1,15 @@
+-# app/views/admin/settings/index.html.haml
+
+/ %h1 Admin::Settings#index
+/ %p Find me in app/views/admin/settings/index.html.haml
+
+%h1 Site Settings
+
+= render 'notices'
+
+= render 'form'
+
+= content_for :page_footer do
+  %p= link_to "Back to Home", "/index", :class => :apple
+  
+  %h5.tagline Hic Iacet Arthurus, Rex Quondam, Rexque Futuris
