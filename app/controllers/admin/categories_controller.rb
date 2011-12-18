@@ -1,5 +1,5 @@
-class CategoriesController < ApplicationController
-  before_filter :authenticate_user, :except => %w(index show)
+class Admin::CategoriesController < ApplicationController
+  before_filter :authenticate_user
   
   # GET /categories
   def index
@@ -25,4 +25,4 @@ class CategoriesController < ApplicationController
     append_flash :error, "Couldn't find Category with title or id \"#{params[:id]}\".", true
     redirect_to "/categories" and return
   end # action show
-end # controller CategoriesController
+end # controller Admin::CategoriesController

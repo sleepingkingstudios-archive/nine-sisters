@@ -7,8 +7,7 @@
 
 = render "notices"
 
-- unless current_user.nil?
-  %p= link_to "Create Category", new_category_path, :class => :apple
+%p= link_to "Create Category", new_admin_category_path, :class => :apple
 
 %p
   There are currently

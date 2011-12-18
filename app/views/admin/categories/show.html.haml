@@ -7,8 +7,7 @@
 
 = render 'notices'
 
-- unless current_user.nil?
-  %p= link_to "Update Category", nil, :class => :apple
+%p= link_to "Update Category", nil, :class => :apple
 
 %p
   %strong Title:
@@ -16,12 +15,11 @@
   %br
   
   %strong Parent Category:
-  = @category.parent ? link_to(@category.parent.title, @category.parent) : "None"
+  = @category.parent ? link_to(@category.parent.title, [:admin, @category.parent]) : "None"
 
 %h2 Sub-Categories
 
-- unless current_user.nil?
-  %p= link_to "Create Category", { :action => :new, :controller => :categories, :category => { :parent_id => @category.id } }, :class => :apple
+%p= link_to "Create Category", { :action => :new, :controller => :categories, :category => { :parent_id => @category.id } }, :class => :apple
 
 %p.no-margin
   There #{@category.children.count == 1 ? "is" : "are"}
@@ -36,8 +34,7 @@
   
 %h2 Articles
 
-- unless current_user.nil?
-  %p= link_to "Create Article", nil, :class => :apple
+%p= link_to "Create Article", nil, :class => :apple
 
 %p.no-margin
   There #{[].count == 1 ? "is" : "are"}
@@ -49,7 +46,7 @@
 - else
   %br
   
-%p= link_to "Back to Categories", categories_path, :class => :apple
+%p= link_to "Back to Categories", admin_categories_path, :class => :apple
 
 - content_for :page_footer do
   = render 'breadcrumbs'
