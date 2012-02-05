@@ -1,0 +1,15 @@
+-# app/views/admin/articles/index.html.haml
+
+/ %h1 Admin::Articles
+/ %p Find me at app/views/admin/articles/index.html.haml
+
+%h1 Articles
+%p
+  = link_to "Create Article", new_admin_article_path, :class => :apple
+%p
+  There
+  #{@articles.count == 1 ? "is" : "are"} currently
+  #{pluralize @articles.count, "article"} in
+  #{pluralize @categories.count, "categories"}.
+
+= render "list", :actions => true

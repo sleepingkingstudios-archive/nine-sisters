@@ -3,10 +3,63 @@
 / %h2 Admin::Settings#_form
 / %p Find me in app/views/admin/settings/_form.html.haml
 
+- content_for :stylesheets do
+  = stylesheet_link_tag "admin/settings"
+
+- content_for :javascripts do
+  :javascript
+    jQuery(document).ready(function(){
+      function deleteHandler(event){
+        var self = jQuery(this);
+        self.closest('.deletable').remove();
+        event.preventDefault();
+      } // end function deleteHandler
+      
+      jQuery('.delete-link').click(deleteHandler); // end click
+      
+      jQuery('.add-navigation-item').click(function(event){
+        var self = jQuery(this);
+        self.parent().siblings('.navigation-fields').append(function(){
+          var item = jQuery('<span>').addClass('navigation-field deletable').html('#{
+              label_tag(:"settings[navigation][][label]", "Label:", :class => :label) + " " +
+              text_field_tag(:"settings[navigation][][label]", nil, :class => :label) + " " +
+              label_tag(:"settings[navigation][][path]", "Path:", :class => :path) + " " +
+              text_field_tag(:"settings[navigation][][path]", nil, :class => :path) + " " +
+              link_to("Delete", nil, :class => :"apple delete-link")
+          }'); // end html
+          item.children('.delete-link').click(deleteHandler);
+          return item;
+        }()); // end append
+        event.preventDefault();
+      }); // end click
+    }); // end document.ready
+
 = form_tag admin_settings_path, :method => :post do
   %p
     = label_tag :"settings[title]", "Title:"
     = text_field_tag :"settings[title]", Setting.find_by_key("title").value
+  
+  %h3 Navigation
+  %p
+    %strong Note:
+    Fields with empty labels or paths will ignored.
+  %p.navigation-fields
+    - (Setting[:navigation] || "").split(',').each do |item|
+      %span.navigation-field.deletable
+        = label_tag      :"settings[navigation][][label]", "Label:", :class => :label
+        = text_field_tag :"settings[navigation][][label]", item.split('=').first, :class => :label
+        = label_tag      :"settings[navigation][][path]", "Path:", :class => :path
+        = text_field_tag :"settings[navigation][][path]", item.split('=').last, :class => :path
+        = link_to        "Delete", nil, :class => :"apple delete-link"
+  
+    %span.navigation-field.deletable
+      = label_tag      :"settings[navigation][][label]", "Label:", :class => :label
+      = text_field_tag :"settings[navigation][][label]", nil, :class => :label
+      = label_tag      :"settings[navigation][][path]", "Path:", :class => :path
+      = text_field_tag :"settings[navigation][][path]", nil, :class => :path
+      = link_to        "Delete", nil, :class => :"apple delete-link"
+      
+  %p= link_to "Add Navigation Item", nil, :class => :"apple add-navigation-item"
     
   %p
     = submit_tag "Update Settings"

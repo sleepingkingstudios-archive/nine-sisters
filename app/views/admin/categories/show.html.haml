@@ -4,9 +4,6 @@
 / %p Find me at app/views/categories/show.html.haml
 
 %h1 Show Category
-
-= render 'notices'
-
 %p= link_to "Update Category", nil, :class => :apple
 
 %p
@@ -37,14 +34,10 @@
 %p= link_to "Create Article", nil, :class => :apple
 
 %p.no-margin
-  There #{[].count == 1 ? "is" : "are"}
-  #{pluralize [].count, "article"} under #{@category.title}.
-- if [].count > 0
-  %ul
-    - [].each do |category|
-      %li &nbsp;
-- else
-  %br
+  There #{@category.articles.count == 1 ? "is" : "are"}
+  #{pluralize @category.articles.count, "article"} under #{@category.title}.
+
+= render 'admin/articles/list', :articles => @category.articles
   
 %p= link_to "Back to Categories", admin_categories_path, :class => :apple
 

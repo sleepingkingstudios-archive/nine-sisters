@@ -9,6 +9,8 @@ class Category < ActiveRecord::Base
   acts_as_sluggable :title, :uniqueness => false
   acts_as_tree
   
+  has_many :articles
+  
   validates :title, :presence => :true
   validates_uniqueness_of :slug, :scope => :parent_id
   
@@ -21,8 +23,19 @@ class Category < ActiveRecord::Base
         category = (category.children || Category).find_by_slug(slug)
         categories << category
       end # each
-    end # method find_by_path
+    end # class method find_by_path
+    
+    def features
+      @@features ||= [:article, :category]
+    end # class method features
   end # class << self
+  
+  def features
+    features = Array.new
+    @@features.each do |key|
+      features += self.send key if self.class.reflections.has_key? key
+    end # method features
+  end # method features
   
   def path
     (self.parent.nil? ? "/" : "#{self.parent.path}/") + self.slug

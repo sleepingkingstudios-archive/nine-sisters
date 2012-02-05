@@ -23,8 +23,15 @@
     #wrapper
       %header#page-header
         %h1= Setting[:title]
+        
+        %nav#top-nav
+          = navigation_items :wrapper => {:tag => 'li', :class => 'apple'}
+          
+        = yield :page_header
       
       %section#main-section
+        = render 'notices'
+        
         = yield
         
       %nav#primary-nav
@@ -32,13 +39,12 @@
         
         - unless current_user.nil?
           %h3 Admin
-          %p= link_to "Categories", admin_categories_path, :class => :apple
+          %ul
+            %li.apple= link_to "Articles", admin_articles_path
+            %li.apple= link_to "Categories", admin_categories_path
+            %li.apple= link_to "Settings", admin_settings_path
           
           %p
-            %h3 Admin
-            %ul
-              %li.apple= link_to "Settings", admin_settings_path
-            
             You are currently logged in as #{current_user.email}.
             %br
             = link_to "Log Out", session_path, :method => :delete, :class => :apple

@@ -11,7 +11,7 @@
 
 %p
   There are currently
-  = pluralize(0, "article")
+  = pluralize(Article.count, "article")
   in
   #{pluralize(Category.count, "category")}.
 

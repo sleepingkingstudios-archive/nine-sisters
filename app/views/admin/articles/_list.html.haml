@@ -1,0 +1,78 @@
+-# app/views/admin/articles/_list.html.haml
+
+/ %h2 Admin::Articles#_list
+/ %p Find me at app/views/admin/articles/_list.html.haml
+
+- articles ||= @articles
+- actions ||= nil
+
+- content_for :stylesheets do
+  = stylesheet_link_tag "desktop/articles"
+  
+- content_for :javascripts do
+  :javascript
+    jQuery(document).ready(function(event){
+      jQuery('.article-actions-link').click(function(event){
+        var self = jQuery(this);
+        var actions = self.closest('tbody').find('tr.article-actions');
+        
+        if(actions.css('display') == 'none') {
+          actions.show();
+          self.html("Hide Actions");
+        } else {
+          actions.hide();
+          self.html("Show Actions");
+        } // end if-else
+        
+        event.preventDefault();
+      }); // end click
+      
+      jQuery('.articles-table').find('a.delete-link').click(function(event){
+        var self = jQuery(this);
+        var ancestor = self.closest('td');
+        
+        jQuery('#confirm-delete-dialog').find('a.delete-link').off('click').on('click', function(event){
+          event.preventDefault();
+          
+          ancestor.find('.hidden-link').find('a').click();
+        }); // end click
+        
+        jQuery.colorbox({
+          inline: true,
+          href: '#confirm-delete-dialog'
+        }); // end colorbox
+        
+        event.preventDefault();
+      }); // end click
+    }); // end document.ready
+  
+= render 'admin/articles/confirm_delete'
+
+%table.articles-table
+  %thead
+    %tr
+      %th.id_field ID
+      %th Title
+      %th Slug
+      %th Category
+      %th Created At
+      %th Status
+      - if actions
+        %th &nbsp;
+  - articles.each do |article|
+    %tbody
+      %tr
+        %td.id_field= article.id
+        %td= link_to (str = article.draft_title).empty? ? "(no title)" : str, [:admin, article]
+        %td= (str = article.draft_slug).empty? ? lighten("(no slug)") : str
+        %td= (category = article.category) ? (link_to category.title, [:admin, category], :title => "Go to category #{category.title}") : lighten("(no category)")
+        %td= article.created_at
+        %td= format_status(article.status)
+        - if actions
+          %td
+            = link_to "Show Actions", nil, :class => [:"article-actions-link"]
+      - if actions
+        %tr.article-actions{ :style => "display: none;" }
+          %td &nbsp;
+          %td{ :colspan => 7 }
+            = article_actions article, (actions if actions.is_a? Hash)

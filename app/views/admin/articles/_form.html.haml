@@ -1,0 +1,49 @@
+-# app/views/admin/articles/_form.html.haml
+
+/ %h2 Admin::Articles#_form
+/ %p Find me at app/views/admin/articles/_form.html.haml
+
+- article ||= @article
+- version ||= @version
+
+= form_for [:admin, article] do |form|
+  - if article.errors.any? || version.errors.any?
+    - messages = article.errors.full_messages + version.errors.full_messages
+    %div.error-box
+      - if messages.count == 1
+        %p
+          %strong.label Error:
+          = messages.first
+      - else
+        %p
+          %strong.label Error:
+        %ul
+          - messages.each do |message|
+            %li= message
+  
+  %p.no-margin
+    = form.label :category_id, "Category:"
+    - select_categories = @categories.map { |category| [category.title, category.id] }
+    - default_category = (params[:article][:category_id] if params[:article]) || params[:category_id] || ((category = @article.category) ? category.id : nil)
+    = form.select :category_id, options_for_select([nil] + select_categories, default_category)
+    
+  = fields_for version do |fields|
+    %p.no-margin
+      = fields.label :title, "Title:"
+      = fields.text_field :title
+      %br
+      
+      = fields.label :slug, "Short Name:"
+      = fields.text_field :slug
+      %br
+      
+      = fields.label :format, "Format:"
+      = fields.select :format, options_for_select([["Plain Text", "plain text"], ["Redcarpet (Markdown)", "redcarpet"], ["HAML", "haml"]])
+    %p
+      = fields.label :contents, "Contents:"
+      %br
+      = fields.text_area :contents, :rows => 10
+  
+  %p
+    = form.submit
+      

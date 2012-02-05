@@ -1,0 +1,41 @@
+-# app/views/admin/articles/show.html.haml
+
+/ %h1 Admin::Articles::show
+/ %p Find me at app/views/admin/articles/show.html.haml
+
+- content_for :stylesheets do
+  = stylesheet_link_tag "desktop/articles"
+
+%h1 Show Article
+%p
+  %strong Actions:
+  = article_actions @article, :except => :show
+  = link_to "Return to Articles", admin_articles_path, :class => :apple, :style => "float: right"
+
+%h2 Article Information
+%table
+  %tbody
+    %tr
+      %th Article ID
+      %td= @article.id
+    %tr
+      %th Title
+      %td= (str = @article.draft_title).empty? ? lighten("(no title)") : str
+    %tr
+      %th Short Name
+      %td= (str = @article.draft_slug).empty? ? lighten("(no slug)") : str
+    %tr
+      %th Status
+      %td= format_status(@article.status)
+
+%h1= (title = @article.draft_title).empty? ? lighten('(no title)') : title
+
+- if @article.draft_contents.empty?
+  %p= lighten('no contents')
+- else
+  %p= @article.draft_contents
+
+  %p
+    %strong Actions:
+    = article_actions @article, :except => :show
+    = link_to "Return to Articles", admin_articles_path, :class => :apple, :style => "float: right"

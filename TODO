@@ -1,0 +1,16 @@
+TODO items:
+
+Articles:
+- Add confirmation dialog for delete
+- Add backend for submit/approve workflow
+
+ArticleVersions:
+- Add versions controller, /admin/articles/:id/versions/
+  - actions: show, edit, update, destroy, new, create, index
+
+Sessions:
+- On failed login, add flash message and redirect to root
+
+Settings:
+- Add Move Up, Move Down buttons to Navigation fields
+- Fix position of Update Settings button

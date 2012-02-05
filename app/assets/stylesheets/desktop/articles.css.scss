@@ -1,0 +1,25 @@
+/*  app/assets/stylesheets/desktop/articles.css.scss  */
+
+@import '../solarized/colours';
+
+table.articles-table {
+  td, th {
+    padding: 0 0 0 10px;
+    
+    &:first-child {
+      padding-left: 0;
+    } // table.articles-table [td, th]:first-child
+  } // table.articles-table [td, th]
+} // table.articles-table
+
+.hidden-link {
+  display: none;
+} // .hidden-link
+
+span.draft-status {
+  color: $yellow;
+} // span.draft-status
+
+span.published-status {
+  color: $green;
+} // span.published-status

@@ -60,11 +60,15 @@ p {
  *  Anchors  */
 
 a {
-  color: $red;
+  color: $yellow;
   text-decoration: none;
 
   &:hover { text-decoration: underline; }
-} // end a
+  
+  &.danger-link {
+    color: $red;
+  } // a.danger-link
+} // a
 
 /***********
  *  Lists  */
@@ -83,12 +87,34 @@ ul {
     } // ul li ul
     
     &.apple {
+      display: block;
       margin-left: 0;
       
       list-style-type: none;
     } // ul li.apple
   } // ul li
-} ul
+} // ul
+
+/********************
+ *  Top Navigation  */
+
+nav#top-nav {
+  @extend .base-heading;
+  
+  margin-top: 5px;
+  
+  text-align: center;
+  font-size: $h3_font_size;
+  
+  li {
+    background-position: 0 0;
+    
+    &:first-child {
+      background-image: none;
+      padding-left: 0;
+    } // nav#top-nav li:first-child
+  }
+} // nav#top-nav
 
 /************
  *  Tables  */
@@ -99,12 +125,12 @@ body {
 } // body
 
 table {
-  margin: 20px 0;
+  margin: 0 0 20px;
   border-collapse: collapse;
   
   td, th {
     border: 0px none;
-    padding: 0 20px;
+    padding: 0 10px;
     
     font-size: $body_font_size;
     line-height: $body_line_height;
@@ -127,6 +153,7 @@ label {
   width: 140px;
   
   font-size:   $body_font_size;
+  font-weight: bold;
   line-height: $body_line_height;
 } // label
 
@@ -138,10 +165,6 @@ input {
       width: 150px;
     } // input[type=text].short
   } // input[type=text]
-  
-  &[type=submit] {
-    margin-left: 145px;
-  } // input[type=submit]
 } // input
 
 select {
@@ -151,6 +174,10 @@ select {
     width: 155px;
   } // input[type=text].short
 } // select
+
+textarea {
+  width: 100%;
+}
 
 /*********************
  *  Text Decoration  */
@@ -177,6 +204,10 @@ body {
   padding: 10px 8px 6px;
   
   p, ul { margin: 0; }
+  
+  &:first-child {
+    margin-top: 0;
+  } // @mixin notice-box:first-child
   
   > :first-child {
     margin-top: 0;
