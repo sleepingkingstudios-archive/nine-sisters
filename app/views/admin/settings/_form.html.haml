@@ -34,7 +34,7 @@
 = form_tag admin_settings_path, :method => :post do
   %p
     = label_tag :"settings[title]", "Title:"
-    = text_field_tag :"settings[title]", Setting.find_by_key("title").value
+    = text_field_tag :"settings[title]", Setting[:title]
   
   %h3 Navigation
   %p
@@ -48,13 +48,6 @@
         = label_tag      :"settings[navigation][][path]", "Path:", :class => :path
         = text_field_tag :"settings[navigation][][path]", item.split('=').last, :class => :path
         = link_to        "Delete", nil, :class => :"apple delete-link"
-  
-    %span.navigation-field.deletable
-      = label_tag      :"settings[navigation][][label]", "Label:", :class => :label
-      = text_field_tag :"settings[navigation][][label]", nil, :class => :label
-      = label_tag      :"settings[navigation][][path]", "Path:", :class => :path
-      = text_field_tag :"settings[navigation][][path]", nil, :class => :path
-      = link_to        "Delete", nil, :class => :"apple delete-link"
       
   %p= link_to "Add Navigation Item", nil, :class => :"apple add-navigation-item"
     
