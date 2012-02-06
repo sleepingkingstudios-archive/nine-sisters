@@ -26,13 +26,14 @@ class Category < ActiveRecord::Base
     end # class method find_by_path
     
     def features
-      @@features ||= [:article]
+      @@features ||= [:articles]
     end # class method features
   end # class << self
   
   def features
     features = Array.new
     Category.features.each do |key|
+      Kernel.puts key.inspect
       features += self.send key if self.class.reflections.has_key? key
     end # method features
     features

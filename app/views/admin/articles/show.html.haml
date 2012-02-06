@@ -19,6 +19,9 @@
       %th Article ID
       %td= @article.id
     %tr
+      %th Category
+      %td= link_to @article.category.title, [:admin, @article.category]
+    %tr
       %th Title
       %td= (str = @article.draft.title).empty? ? lighten("(no title)") : str
     %tr

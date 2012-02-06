@@ -32,6 +32,11 @@ class Article < ActiveRecord::Base
     categories.reverse
   end # method categories
   
+  # Required for polymorphic routing, delegates to published.slug
+  def slug
+    published.nil? ? nil : published.slug
+  end # method slug
+  
   ###################
   # Managing Workflow
   

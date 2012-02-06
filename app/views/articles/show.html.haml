@@ -3,5 +3,7 @@
 / %h1 Articles#show
 / %p Find me at app/views/articles/show.html.haml
 
-- unless @article.title.empty?
-  %h1 @article.title
+- unless @article.published.title.empty?
+  %h1= @article.published.title
+
+%p= @article.published.contents
