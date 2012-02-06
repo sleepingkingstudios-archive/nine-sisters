@@ -1,6 +1,7 @@
 --- 
 rails.png: rails-e4b51606cd77fda2615e7439907bfc92.png
 application.js: application-ede7edb55e9b725a9f54f3e0d3d559e0.js
+desktop.css: desktop-50eb105bff90f5d06582896d787dc4ce.css
 apple_color_dark_large.png: apple_color_dark_large-3f4cff0b4de3d6d30d658d0effcdc079.png
 apple_color_dark_small.png: apple_color_dark_small-aafae586bc5c86b19693924f612ed0fc.png
 apple_color_day_large.png: apple_color_day_large-e4a0ebab5e28b1af4b45e2cc87f2e5d0.png
@@ -14,5 +15,4 @@ colorbox/loading-day.gif: colorbox/loading-day-dc9c16cb101b9acdf6d1f3ea702afa67.
 colorbox/loading-night.gif: colorbox/loading-night-1f1db200840035b8307d6f5a6644ccfa.gif
 colorbox/loading.xcf: colorbox/loading-b72fc65b6267b8374a2db716a6d3ab38.xcf
 application.css: application-29a171ef5c02ef0665537020efadc10c.css
-desktop.css: desktop-ea29cd12312cdedc16ea778e791add0e.css
 mobile.css: mobile-1c9609bc58b1e77c196de29021583379.css
