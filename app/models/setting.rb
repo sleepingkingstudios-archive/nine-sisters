@@ -12,7 +12,6 @@ class ValueByKeyValidator < ActiveModel::EachValidator
         
         begin
           uri = URI.parse path
-          
         rescue URI::InvalidURIError => error
           record.errors[attribute] << "path must be a valid URI"
         end # begin-rescue
@@ -30,7 +29,7 @@ class Setting < ActiveRecord::Base
   
   class << self
     def [](key)
-      (@@settings ||= Hash.new)[key] || (setting = self.find_by_key(key)) ? setting.value : nil
+      (@@settings ||= Hash.new)[key] || (setting = self.find_by_key(key)) ? setting.value : ""
     end # method []
   end # class << self
   

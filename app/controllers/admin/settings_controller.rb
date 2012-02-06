@@ -11,7 +11,7 @@ class Admin::SettingsController < ApplicationController
     logger.debug "params = #{params.inspect}"
     if params[:settings]
       # sort out navigation settings
-      params[:settings][:navigation] = params[:settings][:navigation].map{ |item|
+      params[:settings][:navigation] = (params[:settings][:navigation] || Array.new).map{ |item|
         next if item[:label].empty? || item[:path].empty?
         "#{item[:label]}=#{item[:path]}"
       }.join(',')

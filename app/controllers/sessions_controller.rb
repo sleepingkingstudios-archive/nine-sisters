@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
       append_flash :notice, "You have successfully logged in as #{params[:email]}.", true
-      redirect_to "/index"
+      redirect_to :root
     else
       render :action => "new"
     end # if-else
