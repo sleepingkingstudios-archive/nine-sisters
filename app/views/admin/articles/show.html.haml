@@ -20,20 +20,20 @@
       %td= @article.id
     %tr
       %th Title
-      %td= (str = @article.draft_title).empty? ? lighten("(no title)") : str
+      %td= (str = @article.draft.title).empty? ? lighten("(no title)") : str
     %tr
       %th Short Name
-      %td= (str = @article.draft_slug).empty? ? lighten("(no slug)") : str
+      %td= (str = @article.draft.slug).empty? ? lighten("(no slug)") : str
     %tr
       %th Status
-      %td= format_status(@article.status)
+      %td= article_status(@article)
 
-%h1= (title = @article.draft_title).empty? ? lighten('(no title)') : title
+%h1= (title = @article.draft.title).empty? ? lighten('(no title)') : title
 
-- if @article.draft_contents.empty?
+- if @article.draft.contents.empty?
   %p= lighten('no contents')
 - else
-  %p= @article.draft_contents
+  %p= @article.draft.contents
 
   %p
     %strong Actions:

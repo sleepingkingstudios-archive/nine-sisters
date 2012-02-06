@@ -1,0 +1,8 @@
+%h1 Categories#find
+
+%p
+  path = "#{params[:path]}", 
+  feature = "#{params[:feature]}"
+
+%p categories = #{@categories.map(&:slug)}
+%p features = #{@features}

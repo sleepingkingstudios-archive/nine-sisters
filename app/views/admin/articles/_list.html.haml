@@ -63,11 +63,11 @@
     %tbody
       %tr
         %td.id_field= article.id
-        %td= link_to (str = article.draft_title).empty? ? "(no title)" : str, [:admin, article]
-        %td= (str = article.draft_slug).empty? ? lighten("(no slug)") : str
+        %td= link_to (str = article.draft.title).empty? ? "(no title)" : str, [:admin, article]
+        %td= (str = article.draft.slug).empty? ? lighten("(no slug)") : str
         %td= (category = article.category) ? (link_to category.title, [:admin, category], :title => "Go to category #{category.title}") : lighten("(no category)")
         %td= article.created_at
-        %td= format_status(article.status)
+        %td= article_status(article)
         - if actions
           %td
             = link_to "Show Actions", nil, :class => [:"article-actions-link"]

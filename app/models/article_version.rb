@@ -6,7 +6,7 @@ class ArticleVersion < ActiveRecord::Base
   # slug:string
   # format:string
   # contents:text
-  # is_published:boolean
+  # published:boolean
   # created_at:datetime
   # updated_at:datetime
   

@@ -1,13 +1,14 @@
 module Admin::ArticlesHelper
-  def format_status(status)
-    if status =~ /published/i
-      return "<span class='published-status'>#{status}</span>".html_safe
+  def article_status(article)
+    if article.published?
+      "Published"
+    elsif article.draft?
+      "Draft"
     else
-      return "<span class='draft-status'>#{status}</span>".html_safe
-    end # if-else
-    return status
-  end # helper format_status
-  private :format_status
+      "Draft"
+    end # if-elsif-else
+  end # article_status
+  private :article_status
   
   def article_actions(article, params = {})
     config = { :except => nil, :only => nil, :separator => " | " }
@@ -30,7 +31,7 @@ module Admin::ArticlesHelper
     items << (link_to "Show Article", admin_article_path(article)) if visible?(:show)
     items << (link_to "Edit Article", edit_admin_article_path(article)) if visible? :edit
 
-    if visible?(:publish) && article.has_draft?
+    if visible?(:publish) && article.draft?
       items << (link_to "Publish Article", publish_admin_article_path(article), :method => :post)
     elsif visible? :revert
       items << (link_to "Revert Article", revert_admin_article_path(article), :method => :post)

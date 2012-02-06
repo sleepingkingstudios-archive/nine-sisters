@@ -2,6 +2,7 @@ class ArticlesController < ApplicationController
   # GET /articles/:id
   def show
     @article = (article = Article.find(params[:id])).published? ? article : nil
+    @categories = article.categories.reverse
   rescue ActiveRecord::RecordNotFound => error
     error_message = error.message
   ensure

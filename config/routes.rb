@@ -1,8 +1,6 @@
 NineSisters::Application.routes.draw do
   root :to => "home#index"
   
-  get "index" => "home#index"
-  
   namespace :admin do
     resources :articles, :only => %w(create destroy edit index new show update) do
       post :publish, :on => :member, :as => :publish
@@ -18,6 +16,9 @@ NineSisters::Application.routes.draw do
   
   resource :user, :only => %w(create new)
   resource :session, :only => %w(create destroy new)
+  
+  get "*path/:feature" => "categories#find"
+  get ":feature" => "categories#find"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

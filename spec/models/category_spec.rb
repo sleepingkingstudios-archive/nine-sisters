@@ -87,4 +87,14 @@ describe Category do
       end # describe ... uniqueness of slugs
     end # describe (initialized)
   end # describe acts_as_tree
+  
+  describe "features" do
+    before :each do
+      @category = FactoryGirl.build(:category, :title => "Movie Stars")
+      @category.articles << FactoryGirl.build(:title => "Bruce Campbell")
+    end # before :each
+    subject { @category }
+    
+    it { @category.articles.should include "Bruce Campbell" }
+  end # describe features
 end # describe Category

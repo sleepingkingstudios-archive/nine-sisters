@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   
   def authenticate_user(params = {})
-    options = { :redirect => "/index" }
+    options = { :redirect => "/" }
     options.update(params) if params.is_a? Hash
     
     # check for specific permissions here

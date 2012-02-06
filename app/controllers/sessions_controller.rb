@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
   def destroy
     session[:user_id] = nil
     append_flash :notice, "You have successfully logged out.", true
-    redirect_to "/index"
+    redirect_to :root
   end # action destroy
   
   # GET /session/new

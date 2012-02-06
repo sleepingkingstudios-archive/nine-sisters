@@ -21,66 +21,39 @@ class Article < ActiveRecord::Base
   ##################
   # Instance Methods
   
-  def has_draft?
-    return false if (draft = versions.draft.last).nil?
-    return true if (published = versions.published.last).nil?
-    
-    draft.created_at > published.created_at
-  end # method has_draft?
+  # Returns the categories containing this article, from largest (top-level) to
+  # smallest (the direct parent).
+  def categories
+    categories = Array.new
+    unless self.category.nil?
+      categories << self.category
+      categories += self.category.ancestors
+    end # unless
+    categories.reverse
+  end # method categories
   
+  ###################
+  # Managing Workflow
+  
+  # Returns the most recent version, regardless of publication status, or nil
+  # if there are no versions (this is an error condition!).
+  def draft
+    self.versions.last
+  end # method draft
+  
+  # Returns true if the most recent version exists and is not published.
+  def draft?
+    !draft.nil? && !draft.published?
+  end # method draft?
+  
+  # Returns the most recent published version, or nil if there are no published
+  # versions.
+  def published
+    self.versions.published.last
+  end # method published
+  
+  # Returns true if there exists at least one published version.
   def published?
-    !(versions.published.last.nil?)
-  end # method is_published?
-  
-  def published_at
-    (version = versions.published.last) ? version.created_at : ""
-  end # method published_at
-  
-  def status
-    if self.published? and self.has_draft?
-      return "Published, with Draft"
-    elsif self.published?
-      return "Published"
-    else
-      return "Draft"
-    end # if-else
-  end # method status
-  
-  ##################
-  # Draft Properties
-  
-  def draft_title
-    versions.last.title || ""
-  end # method draft_title
-  
-  def draft_slug
-    versions.last.slug || ""
-  end # method draft_slug
-  
-  def draft_format
-    versions.last.format || ""
-  end # method draft_format
-  
-  def draft_contents
-    versions.last.contents || ""
-  end # method draft_contents
-  
-  ######################
-  # Published Properties
-  
-  def title
-    (version = versions.published.last) ? version.title : ""
-  end # method title
-  
-  def slug
-    (version = versions.published.last) ? version.slug : ""
-  end # method slug
-  
-  def format
-    (version = versions.published.last) ? version.format : "text"
-  end # method format
-  
-  def contents
-    (version = versions.published.last) ? version.contents : ""
-  end # method contents
+    !self.versions.published.last.nil?
+  end # method published?
 end # model Article
