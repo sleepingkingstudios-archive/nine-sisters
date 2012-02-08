@@ -42,6 +42,7 @@ module NineSisters
     # Enable the asset pipeline
     config.assets.enabled = true
     config.assets.precompile += ['desktop.css', 'mobile.css']
+    config.assets.precompile += %w(articles).map { |controller| "desktop/#{controller}.css" }
     config.assets.initialize_on_precompile = false
 
     # Version of your assets, change this if you want to expire all your assets
