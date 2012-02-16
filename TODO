@@ -8,6 +8,15 @@ ArticleVersions:
 - Add versions controller, /admin/articles/:id/versions/
   - actions: show, edit, update, destroy, new, create, index
 
+Categories
+- Update admin/categories controller with missing actions
+- Remove scaffolding presentational code e.g. %h1 Categories#_form
+- Create more useful admin/categories/_list partial
+
+Features
+- Require uniqueness of slugs among parent category's features
+- Re-add child categories as "features"
+
 Sessions:
 - On failed login, add flash message and redirect to root
 

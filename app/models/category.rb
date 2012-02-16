@@ -9,10 +9,14 @@ class Category < ActiveRecord::Base
   acts_as_sluggable :title, :uniqueness => false
   acts_as_tree
   
-  has_many :articles
+  has_many :category_features,
+    :class_name => "CategoryFeature",
+    :dependent => :destroy
   
   validates :title, :presence => :true
-  validates_uniqueness_of :slug, :scope => :parent_id
+  validates :slug,
+    :uniqueness => { :scope => :parent_id },
+    :does_not_match_feature => true
   
   scope :top_level, where(:parent_id => nil)
   
@@ -24,26 +28,13 @@ class Category < ActiveRecord::Base
         categories << category
       end # each
     end # class method find_by_path
-    
-    def features
-      @@features ||= [:articles]
-    end # class method features
   end # class << self
   
   def features
-    features = Array.new
-    Category.features.each do |key|
-      Kernel.puts key.inspect
-      features += self.send key if self.class.reflections.has_key? key
-    end # method features
-    features
+    self.category_features.includes(:feature).map(&:feature)
   end # method features
   
   def path
     (self.parent.nil? ? "/" : "#{self.parent.path}/") + self.slug
   end # method path
-  
-  def to_param
-    self.slug
-  end # method to_param
-end # class Category
+end # model Category

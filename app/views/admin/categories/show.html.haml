@@ -4,15 +4,26 @@
 / %p Find me at app/views/categories/show.html.haml
 
 %h1 Show Category
-%p= link_to "Update Category", nil, :class => :apple
-
 %p
-  %strong Title:
-  = @category.title
-  %br
-  
-  %strong Parent Category:
-  = @category.parent ? link_to(@category.parent.title, [:admin, @category.parent]) : "None"
+  %strong Actions:
+  = category_actions @category, :except => :show
+  = link_to "Return to Categories", admin_categories_path, :class => :apple, :style => "float: right"
+
+%h2 Category Information
+%table
+  %tbody
+    %tr
+      %th Category ID
+      %td= @category.id
+    %tr
+      %th Parent Category
+      %td= (parent = @category.parent).nil? ? lighten("(no parent)") : link_to(parent.title, admin_category_path(parent))
+    %tr
+      %th Title
+      %td= (str = @category.title).empty? ? lighten("(no title)") : str
+    %tr
+      %th Short Name
+      %td= (str = @category.slug).empty? ? lighten("(no title)") : str
 
 %h2 Sub-Categories
 
@@ -31,7 +42,7 @@
   
 %h2 Articles
 
-%p= link_to "Create Article", nil, :class => :apple
+%p= link_to "Create Article", { :action => :new, :controller => :articles, :article => { :category_id => @category.id } }, :class => :apple
 
 %p.no-margin
   There #{@category.articles.count == 1 ? "is" : "are"}

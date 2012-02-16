@@ -37,7 +37,7 @@ class Admin::ArticlesController < ApplicationController
   
   # GET /admin/articles/new
   def new
-    @article = Article.new
+    @article = Article.new params[:article]
     @categories = Category.all
     @version = @article.versions.build
   end # action new

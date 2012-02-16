@@ -1,0 +1,11 @@
+-# app/views/admin/categories/edit.html.haml
+
+%h1 Categories#edit
+%p Find me in app/views/admin/categories/edit.html.haml
+
+%p= params.inspect
+
+= render 'form'
+
+- content_for :page_footer do
+  = render 'breadcrumbs'

@@ -1,10 +1,14 @@
 class Article < ActiveRecord::Base
   # id:integer (primary key)
-  # category_id:integer (belongs_to :category)
   # created_at:datetime
   # updated_at:datetime
   
-  belongs_to :category
+  has_one :category_feature,
+    :as => :feature,
+    :dependent => :destroy
+  has_one :category,
+    :through => :category_feature
+  
   has_many :versions,
     :class_name => "ArticleVersion",
     :dependent => :destroy,
@@ -17,7 +21,7 @@ class Article < ActiveRecord::Base
         where(:published => true)
       end # method published
     end # association :versions
-    
+  
   ##################
   # Instance Methods
   

@@ -22,7 +22,6 @@ describe Category do
     
     it { subject.slug.should == subject.title.downcase.tr(" ", "-") }
     it { subject.path.should == "/#{subject.title.downcase.tr(" ", "-")}" }
-    it { subject.to_param.should == subject.title.downcase.tr(" ", "-") }
     
     describe "validation" do
       before :each do
@@ -35,6 +34,14 @@ describe Category do
       it { subject.should_not be_valid }
       it { subject.errors.messages[:slug].should include "can't be blank" }
     end # describe validation
+    
+    describe "custom slug" do
+      pending "-> this is currently broken in acts_as_sluggable"
+      # let(:custom_slug) { "custom-slug" }
+      # subject { FactoryGirl.create(:category, :slug => custom_slug) }
+      # 
+      # it { subject.slug.should == custom_slug }
+    end # describe custom slug
   end # describe acts_as_sluggable
   
   describe "acts_as_tree" do
@@ -85,16 +92,90 @@ describe Category do
           category.should be_valid
         end # it validates slug uniqueness ...
       end # describe ... uniqueness of slugs
+      
+      describe "validator prevents cycle of ancestors" do
+        before :each do
+          @famous_swords = FactoryGirl.create(:category, :title => "Famous Swords")
+          @swords.children << @famous_swords
+          @weapons.parent = @famous_swords
+          @weapons.valid? # force validation
+        end # before :each
+        
+        it { @weapons.should_not be_valid }
+        it { @weapons.errors.messages[:parent_id].join().should =~ /cannot be its own descendant/i }
+      end # describe validator prevents cycle of ancestors
     end # describe (initialized)
   end # describe acts_as_tree
   
   describe "features" do
-    before :each do
-      @category = FactoryGirl.build(:category, :title => "Movie Stars")
-      @category.articles << FactoryGirl.build(:title => "Bruce Campbell")
-    end # before :each
-    subject { @category }
+    def self.feature_data
+      [ {}, {}, {} ]
+    end # self.feature_data
+    let(:feature_data) { self.class.feature_data }
     
-    it { @category.articles.should include "Bruce Campbell" }
+    let(:generic_features) {
+      feature_data.map { |data| FactoryGirl.create(:generic_feature, data) }
+    } # end let :generic_features
+    
+    let!(:category_features) {
+      generic_features.map { |feature| FactoryGirl.create(:category_feature,
+        :category => subject,
+        :feature => feature)
+      } # end map
+    } # end let :category_features
+    
+    subject { FactoryGirl.create(:category) }
+    
+    describe "features method" do
+      feature_data.each_with_index do |data, index|
+        it { subject.features.should include generic_features[index] }
+      end # each_with_index
+    end # describe features
+    
+    describe "has_many :category_features" do
+      feature_data.count.times do |index|
+        context do
+          let(:category_feature) { category_features[index] }
+          let(:force_reload) { true } # this is required for some reason
+          
+          it { category_feature.category_id.should be subject.id }
+          it { category_feature.category should == subject }
+          it { subject.category_features(force_reload).should include category_feature }
+        end # anonymous context
+      end # times
+    end # describe has_many :category_features
+    
+    describe "cannot set child category's slug to feature's slug" do
+      let(:child_category) {
+        FactoryGirl.build(:category,
+          :parent => subject).tap { |o| o.valid? }
+      } # let :child_category
+      
+      let!(:category_feature) {
+        FactoryGirl.create(:category_feature,
+          :category => subject,
+          :feature => FactoryGirl.create(:generic_feature, :slug => child_category.slug))
+      } # end let :feature
+      
+      before :each do child_category.valid?; end
+      
+      it { child_category.should_not be_valid }
+      it { child_category.errors.messages[:slug].join.should =~ /is already taken/i }
+    end # describe cannot set child category's slug to feature's slug
+    
+    describe "cannot have top level category with top level feature's slug" do
+      subject { FactoryGirl.create(:category) }
+      
+      let!(:category_feature) {
+        FactoryGirl.create(:category_feature,
+          :category => nil,
+          :feature => FactoryGirl.create(:generic_feature, :slug => subject.slug))
+      } # end let :category_feature
+      
+      before :each do subject.valid? end
+      
+      it { subject.should_not be_valid }
+      it { subject.errors.messages[:slug].join.should =~ /is already taken/i}
+    end # describe
   end # describe features
 end # describe Category

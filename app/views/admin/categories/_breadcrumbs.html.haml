@@ -1,7 +1,7 @@
 -# app/views/categories/_breadcrumbs.html.haml
 
 %p
-  = link_to "Back to Home", "/index"
+  = link_to "Back to Home", :root
   = link_to "Back to Categories", admin_categories_path, :class => :apple
   - unless @category.nil?
     - @category.ancestors.reverse.push(@category).each do |category|
