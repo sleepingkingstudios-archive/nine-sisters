@@ -31,3 +31,17 @@ RSpec.configure do |config|
   # rspec-rails.
   config.infer_base_class_for_anonymous_controllers = false
 end
+
+# Monkey patch RSpec::ExampleGroup for formatted output
+class RSpec::Core::ExampleGroup
+  class << self
+    def context(*args, &block)
+      return describe(*args, &block) if args.empty?
+      
+      str = args.shift
+      str = "(#{str})" unless str =~ /^\(/
+      
+      describe("\n#{"  "*(ancestors.count+1)}#{str}", *args, &block)
+    end # method context
+  end # class << self
+end # class ExampleGroup
