@@ -17,8 +17,8 @@ gem 'haml'
 gem 'haml-rails'
 gem 'jquery-rails'
 
-gem 'acts_as_sluggable', :git => 'git@github.com:sleepingkingstudios/acts_as_sluggable.git'
-gem 'acts_as_tree',      :git => 'git@github.com:sleepingkingstudios/acts_as_tree.git'
+gem 'acts_as_sluggable', '>= 0.1.1', :git => 'git@github.com:sleepingkingstudios/acts_as_sluggable.git'
+gem 'acts_as_tree',      '>= 0.1.1', :git => 'git@github.com:sleepingkingstudios/acts_as_tree.git'
 
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'

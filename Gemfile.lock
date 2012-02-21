@@ -1,15 +1,15 @@
 GIT
   remote: git@github.com:sleepingkingstudios/acts_as_sluggable.git
-  revision: 17bad84950732b70681e0f196a02fa9ff6807aae
+  revision: 09fb0058d79617e0fabc3957edf7eb88142a7098
   specs:
-    acts_as_sluggable (0.0.1)
-      rails (>= 3.1.1)
+    acts_as_sluggable (0.1.1)
+      rails (~> 3.2.1)
 
 GIT
   remote: git@github.com:sleepingkingstudios/acts_as_tree.git
-  revision: 22d84882d9cdc7d88483f008bba09a0412ec2a9a
+  revision: b9b05bde56fb46975b9cf7e870ac5da11815f9f7
   specs:
-    acts_as_tree (0.0.1)
+    acts_as_tree (0.1.1)
       rails (~> 3.2.1)
 
 GEM
@@ -143,8 +143,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  acts_as_sluggable!
-  acts_as_tree!
+  acts_as_sluggable (>= 0.1.1)!
+  acts_as_tree (>= 0.1.1)!
   bcrypt-ruby (~> 3.0.0)
   coffee-rails (~> 3.2.1)
   factory_girl_rails
