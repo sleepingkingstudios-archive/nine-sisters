@@ -2,19 +2,21 @@ class Category < ActiveRecord::Base
   # id:integer (primary key)
   # title:string
   # slug:string (acts_as_sluggable)
+  # slug_lock:boolean (acts_as_sluggable)
   # parent_id:integer (acts_as_tree)
   # created_at:datetime
   # updated_at:datetime
   
-  acts_as_sluggable :title, :uniqueness => false
+  acts_as_sluggable :title, :allow_lock => true
   acts_as_tree
   
   has_many :category_features,
     :class_name => "CategoryFeature",
     :dependent => :destroy
   
-  validates :title, :presence => :true
+  validates :title, :presence => true
   validates :slug,
+    :presence => true,
     :uniqueness => { :scope => :parent_id },
     :does_not_match_feature => true
   

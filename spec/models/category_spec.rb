@@ -25,23 +25,46 @@ describe Category do
     
     describe "validation" do
       before :each do
-        @category = FactoryGirl.build(:category, :title => nil)
-        @category.valid? # force validation
+        FactoryGirl.create(:category, :title => "The Name of the Rose")
+        @category = FactoryGirl.build(:category, :title => "Il Nome della Rosa")
       end # before :each
-      
       subject { @category }
       
-      it { subject.should_not be_valid }
-      it { subject.errors.messages[:slug].should include "can't be blank" }
+      it { subject.should be_valid }
+      
+      describe "slug cannot be blank" do
+        before :each do subject.slug = nil end
+        
+        it { subject.should_not be_valid }
+        
+        context do
+          before :each do subject.valid? end
+          
+          it { subject.errors.messages[:slug].join.should =~ /can't be blank/i }
+        end # anonymous context
+      end # describe slug cannot be blank
+      
+      describe "slug must be unique within scope" do
+        before :each do subject.slug = "the-name-of-the-rose" end
+          
+        it { subject.should_not be_valid }
+        
+        context do
+          before :each do subject.valid? end
+          
+          it { subject.errors.messages[:slug].join.should =~ /has already been taken/i }
+        end # anonymous context
+      end # describe slug must be unique within scope
+      
+      describe "slug can be shared across scopes" do
+        before :each do
+          subject.parent = FactoryGirl.create :category, :title => :literature
+          subject.slug = "the-name-of-the-rose"
+        end # before :each
+        
+        it { subject.should be_valid }
+      end # describe slug can be shared across scopes
     end # describe validation
-    
-    describe "custom slug" do
-      pending "-> this is currently broken in acts_as_sluggable"
-      # let(:custom_slug) { "custom-slug" }
-      # subject { FactoryGirl.create(:category, :slug => custom_slug) }
-      # 
-      # it { subject.slug.should == custom_slug }
-    end # describe custom slug
   end # describe acts_as_sluggable
   
   describe "acts_as_tree" do
