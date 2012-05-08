@@ -1,7 +1,19 @@
 /*  lib/assets/stylesheets/desktop/text.css.scss  */
 
 @import './dimensions';
-@import '../solarized/colours';
+
+/*********************
+ *  Text Decoration  */
+
+.accent, .accent-2, .warning {
+  display: inline-block;
+  
+  padding-left: 20px;
+  background: {
+    position: 0 -2px;
+    repeat: no-repeat;
+  };
+} // .accent, .accent-2, .warning
 
 /**************
  *  Headings  */
@@ -16,35 +28,13 @@
   } // .base-heading .no-margin
 } // .base-heading
 
-h1 {
-  @extend .base-heading;
-  font-size:   $h1_font_size;
-  line-height: $h1_line_height;
-} // h1
-
-h2 {
-  @extend .base-heading;
-  font-size:   $h2_font_size;
-  line-height: $h2_line_height;
-} // h2
-
-h3 {
-  @extend .base-heading;
-  font-size:   $h3_font_size;
-  line-height: $h3_line_height;
-} // h3
-
-h4 {
-  @extend .base-heading;
-  font-size:   $h4_font_size;
-  line-height: $h4_line_height;
-} // h4
-
-h5 {
-  @extend .base-heading;
-  font-size:   $h5_font_size;
-  line-height: $h5_line_height;
-} // h5
+@for $i from 1 to 6 {
+  h#{$i} {
+    @extend .base-heading;
+    font-size:   nth($heading_font_size, $i);
+    line-height: nth($heading_line_height, $i);
+  } // h#{i}
+} /* end for */
 
 /****************
  *  Paragraphs  */
@@ -56,18 +46,20 @@ p {
   margin: 0 0 20px;
 } // p
 
+blockquote {
+  font-size:   $body_font_size;
+  line-height: $body_line_height;
+  
+  margin: 0 0 20px 20px;
+} // blockquote
+
 /*************
  *  Anchors  */
 
 a {
-  color: $yellow;
   text-decoration: none;
 
   &:hover { text-decoration: underline; }
-  
-  &.danger-link {
-    color: $red;
-  } // a.danger-link
 } // a
 
 /***********
@@ -79,6 +71,9 @@ ul {
   
   list-style-position: outside;
   
+  font-size:   $body_font_size;
+  line-height: $body_line_height;
+  
   li {
     margin-left: 20px;
     
@@ -86,12 +81,18 @@ ul {
       margin: 0;
     } // ul li ul
     
-    &.apple {
+    &.null {
+      display: block;
+      
+      list-style-type: none;
+    } // ul li.null
+    
+    &.accent, &.accent-2 {
       display: block;
       margin-left: 0;
       
       list-style-type: none;
-    } // ul li.apple
+    } // ul li.accent
   } // ul li
 } // ul
 
@@ -104,7 +105,7 @@ nav#top-nav {
   margin-top: 5px;
   
   text-align: center;
-  font-size: $h3_font_size;
+  font-size: nth($heading_font_size, 3);
   
   li {
     background-position: 0 0;
@@ -118,11 +119,6 @@ nav#top-nav {
 
 /************
  *  Tables  */
-
-body {
-  &.day table { border-color: $base01 }
-  &.night table { border-color: $base1 }
-} // body
 
 table {
   margin: 0 0 20px;
@@ -150,7 +146,7 @@ form {
 
 label {
   display: inline-block;
-  width: 140px;
+  padding-top: 6px;
   
   font-size:   $body_font_size;
   font-weight: bold;
@@ -158,86 +154,20 @@ label {
 } // label
 
 input {
+  font-family: "Constantia", "Times New Roman", "Times", sans-serif;
+  font-size: $body_font_size;
+  
   &[type=text], &[type=password] {
-    width: 470px;
-    
-    &.short {
-      width: 150px;
-    } // input[type=text].short
+    width: 100%;
   } // input[type=text]
 } // input
 
 select {
-  width: 475px;
-  
-  &.short {
-    width: 155px;
-  } // input[type=text].short
+  width: 100%;
 } // select
 
 textarea {
+  font-size: $body_font_size;
+  
   width: 100%;
-}
-
-/*********************
- *  Text Decoration  */
-
-body {
-  &.day .apple { background-image: image_url("apple_color_day_small.png"); }
-  &.night .apple { background-image: image_url("apple_color_night_small.png"); }
-} // body
-
-.apple {
-  display: inline-block;
-  
-  padding-left: 20px;
-  background: {
-    position: 0 -2px;
-    repeat: no-repeat;
-  };
-} // .apple
-
-@mixin notice-box {
-  margin: 20px 0;
-  border-style: solid;
-  border-width: 2px;
-  padding: 10px 8px 6px;
-  
-  p, ul { margin: 0; }
-  
-  &:first-child {
-    margin-top: 0;
-  } // @mixin notice-box:first-child
-  
-  > :first-child {
-    margin-top: 0;
-  } // @mixin notice-box > :first-child
-  
-  > :last-child {
-    margin-bottom: 0;
-  } // @mixin notice-box > :last-child
-} // @mixin notice-box
-
-.error-box {
-  @include notice-box;
-  
-  border-color: $red;
-  
-  strong.label { color: $red; }
-} // .error-box
-
-.warning-box {
-  @include notice-box;
-  
-  border-color: $yellow;
-  
-  strong.label { color: $yellow; }
-} // .warning-box
-
-.notice-box {
-  @include notice-box;
-  
-  border-color: $green;
-  
-  strong.label { color: $green; }
-} // .warning-box
+} // textarea

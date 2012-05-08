@@ -1,0 +1,14 @@
+/* themes/plugins/starry-night/colorbox.css.scss */
+
+@import '../../mixins/solarized-colours';
+
+body.starry-night {
+  #cboxOverlay{ background:$base02; }
+  #cboxLoadingGraphic{ background:image-url('themes/starry-night/plugins/colorbox/loading.gif') no-repeat center center; }
+
+  #colorbox #cboxContent {
+    .cboxIframe{ background:$base03; }
+    #cboxLoadedContent, #cboxLoadingOverlay { background: $base03 }
+    #cboxTitle { color: $base1 }
+  } // body.starry-night #colorbox #cboxContent
+} // body.starry-night

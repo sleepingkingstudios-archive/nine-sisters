@@ -1,0 +1,70 @@
+-# app/views/admin/blog_posts/_form.html.haml
+
+/ %h2 Admin::BlogPosts#_form
+/ %p Find me at app/views/admin/blog_posts/_form.html.haml
+
+- content_for :javascripts do
+  :javascript
+    jQuery(document).ready(function(event){
+      jQuery('a.submit-link').click(function(event){
+        var self = jQuery(this);
+        self.siblings("input[type=submit]").click();
+        event.preventDefault();
+      }); // end click
+    }); // end document.ready
+
+- blog ||= @blog
+- post ||= @post
+- submit_path = admin_blog_post_path(blog, post)
+- if params[:action] == "edit" || params[:action] == "update"
+  - submit_text = "Update Post"
+  - cancel_path = admin_blog_post_path(blog, post)
+  - cancel_text = "Cancel Edit"
+- else
+  - submit_text = "Create Post"
+  - cancel_path = admin_blog_posts_path(blog)
+  - cancel_text = "Cancel Post"
+
+= form_for post, :url => submit_path do |form|
+  - if post.errors.any?
+    - messages = post.errors.full_messages
+    %div.error-box
+      - if messages.count == 1
+        %p
+          %strong.label Error:
+          = messages.first
+      - else
+        %p
+          %strong.label Error:
+        %ul
+          - messages.each do |message|
+            %li= message
+
+  %table{ :style => "width: 100%;" }
+    %tbody
+      %tr
+        %td{ :style => "width: 100px;" }= label_tag nil, "Blog:"
+        %td= text_field_tag nil, @blog.title, :disabled => true
+      %tr
+        %td= form.label :title, "Title:"
+        %td= form.text_field :title
+      %tr
+        %td= form.label :subtitle, "Subtitle:"
+        %td= form.text_field :subtitle
+      %tr
+        %td= form.label :slug, "Slug:"
+        %td= form.text_field :slug, :disabled => true
+      %tr
+        %td= form.label :format, "Format:"
+        %td= form.select :format, options_for_select(BlogPost.formats, post.format)
+      %tr
+        %td= form.label :contents, "Contents:"
+        %td= form.text_area :contents, :style => "width: 100%;"
+      %tr
+        %td &nbsp;
+        %td
+          = form.submit submit_text, :style => "display: none;"
+          = link_to submit_text, nil, :class => :"safe-link submit-link"
+          = link_to cancel_text, cancel_path, :class => :"warning-link"
+          - if params[:action] == "edit" || params[:action] == "update"
+            = link_to "Delete Post", admin_blog_post_path(blog, post), :method => :delete, :class => :"danger-link"

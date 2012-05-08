@@ -3,6 +3,7 @@
   %head
     %title= Setting[:title]
     = stylesheet_link_tag :application
+    = stylesheet_link_tag :themes
     = stylesheet_link_tag(mobile? ? :mobile : :desktop)
     = yield :stylesheets
     
@@ -13,19 +14,28 @@
           jQuery.colorbox({ href: '#{new_session_path}' });
           event.preventDefault();
         }); // end click
+        
+        jQuery("a.theme-link").click(function(event){
+          var self = jQuery(this);
+          
+          event.preventDefault();
+          event.stopPropagation();
+          
+          jQuery("body").removeClass("autumn starry-night").addClass(self.attr("data-theme"));
+        }); // end click
       }); // end document.ready
       
     = yield :javascripts
     
     = csrf_meta_tags
     
-  %body.day
+  %body{ :class => Setting[:"default-theme"] }
     #wrapper
       %header#page-header
         %h1= Setting[:title]
         
         %nav#top-nav
-          = navigation_items :wrapper => {:tag => 'li', :class => 'apple'}
+          = navigation_items :wrapper => {:tag => 'li', :class => 'accent'}
           
         = yield :page_header
       
@@ -37,17 +47,37 @@
       %nav#primary-nav
         %h2 Navigation
         
+        %ul
+          = navigation_items :wrapper => {:tag => 'li', :class => 'accent'}
+        
+        %h4 Contact
+        #navigation-contact
+          %p.no-margin Email the author at:
+          
+          :redcarpet
+            <merlin@sleepingkingstudios.com>
+        :javascript
+          jQuery('#navigation-contact').find('.redcarpet').children('p').children('a').addClass('accent');
+        
+        / %h4 Set Theme
+        / %ul
+        /   %li.accent
+        /     %a.theme-link{ :"data-theme" => "autumn", :href => "#" } Autumn
+        /   %li.accent
+        /     %a.theme-link{ :"data-theme" => "starry-night", :href => "#" } Starry Night
+        
         - unless current_user.nil?
           %h3 Admin
           %ul
-            %li.apple= link_to "Articles", admin_articles_path
-            %li.apple= link_to "Categories", admin_categories_path
-            %li.apple= link_to "Settings", admin_settings_path
+            / %li.accent= link_to "Articles", admin_articles_path
+            %li.accent= link_to "Blogs", admin_blogs_path
+            %li.accent= link_to "Categories", admin_categories_path
+            %li.accent= link_to "Settings", admin_settings_path
           
           %p
             You are currently logged in as #{current_user.email}.
             %br
-            = link_to "Log Out", session_path, :method => :delete, :class => :apple
+            = link_to "Log Out", session_path, :method => :delete, :class => :accent
 
       %br{:style => "clear: both;"}
     
@@ -62,5 +92,6 @@
     
     :javascript
       var height = jQuery('#page-footer').height();
-      jQuery('#fake-footer').height(height);
+      jQuery('#fake-footer').css('height', height + 'px');
       jQuery('#wrapper').css('margin-bottom', -height + 'px');
+      // jQuery('#wrapper').css('background-attachment', 'fixed');

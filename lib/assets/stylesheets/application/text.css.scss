@@ -1,44 +1,9 @@
 /*  lib/assets/stylesheets/application/text.css.scss  */
 
-@import '../solarized/colours';
+$body_font_family: "Constantia", "Times New Roman", "Times", sans-serif;
 
 body {
-  font-family: "Constantia", "Times New Roman", "Times", sans-serif;
-  
-  &.day {
-    color: $base00;
-    
-    .light {
-      color: $base0;
-    } // body.day .light
-    
-    .dark, strong, h1, h2, h3, h4, h5, h6 {
-      color: $base01;
-    } // strong, h1, ...
-  } // body.day
-  
-  &.night {
-    color: $base0;
-    
-    .light {
-      color: $base00;
-    } // body.night .light
-    
-    .dark, strong, h1, h2, h3, h4, h5, h6 {
-      color: $base1;
-    } // strong, h1, ...
-  } // body.night
+  font-family: $body_font_family;
 } // body
 
 .no-margin { margin: 0; }
-
-/******************
- *  Colored Text  */
-
-.green-text {
-  color: $green;
-} // .green-text
-
-.red-text {
-  color: $red;
-} // .red-text

@@ -1,0 +1,21 @@
+-# app/views/admin/settings/_navigation_settings.html.haml
+
+-# %h2 Admin::Settings#_navigation_settings
+-# %p Find me at app/views/admin/settings/_navigation_settings.html.haml
+
+- item ||= nil
+- width ||= 100
+%tbody.navigation-field.deletable.movable
+  %tr
+    %td{ :style => "width: #{width}px;" }
+      = label_tag       :"settings[navigation][][label]", "Label:", :class => :label
+    %td= text_field_tag :"settings[navigation][][label]", (item ? item.split("=").first : ""), :class => :label
+  %tr
+    %td= label_tag      :"settings[navigation][][path]", "Path:", :class => :path
+    %td= text_field_tag :"settings[navigation][][path]", (item ? item.split("=").last : ""), :class => :path
+  %tr
+    %td &nbsp;
+    %td
+      = link_to        "Move Up", nil, :class => :"accent move-up-link"
+      = link_to        "Move Down", nil, :class => :"accent-2 move-down-link"
+      = link_to        "Delete", nil, :class => :"warning delete-link"

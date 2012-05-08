@@ -1,0 +1,13 @@
+-# app/views/blog_posts/show.html.haml
+
+/ %h1 BlogPosts#show
+/ %p Find me at app/views/blog_posts/show.html.haml
+
+%hgroup
+  %h1.title= @post.title
+  %h2.subtitle= @post.subtitle
+%p= render "blog_posts/posted_at", :post => @post
+
+= render 'contents', :charlimit => nil
+
+%p= link_to "Back to #{@blog.title}", "/blog", :class => :accent

@@ -1,6 +1,4 @@
-class Admin::CategoriesController < ApplicationController
-  before_filter :authenticate_user
-  
+class Admin::CategoriesController < Admin::AdminController
   # POST /admin/categories
   def create
     @category = Category.new params[:category]

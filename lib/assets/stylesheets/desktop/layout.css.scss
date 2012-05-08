@@ -1,7 +1,6 @@
 /*  lib/assets/stylesheets/desktop/layout.css.scss  */
 
 @import './dimensions';
-@import '../solarized/colours';
 
 html { height: 100%; }
 
@@ -11,27 +10,11 @@ body {
   margin: 0;
   padding: 0;
   
-  &.day {
-    background-color: $base3;
-    
-    #wrapper {
-      background-image: image_url("background-tree-day.png");
-      background-position: center center;
-      background-repeat: no-repeat;
-    } // body.day #wrapper
-  } // body.day
-  
-  &.night {
-    background-color: $base03;
-    
-    #wrapper {
-      background-image: image_url("background-tree-night.png");
-      background-position: center center;
-      background-repeat: no-repeat;
-    } // body.night #wrapper
-  } // body.night
-  
   #wrapper {
+/*    background-attachment: fixed;*/
+    background-position: center 200px;
+    background-repeat: no-repeat;
+    
     width: $page_width;
     min-height: 100%;
     height: auto !important;
@@ -44,9 +27,7 @@ body {
       
       h1 {
         margin: 0;
-
-        font-size:   0.75 * ($h1_line_height + 10);
-        line-height: $h1_line_height + 5;
+        
         text-align: center;
       } // end body #wrapper > header h1
     } // end body #wrapper > header
@@ -58,7 +39,7 @@ body {
       margin-left: 20px;
       
       > h2:first-child {
-        line-height: $h1_line_height;
+        line-height: nth($heading_line_height, 1);
       } // body #wrapper > nav > h2:first-child
     } // end body #wrapper > nav
     

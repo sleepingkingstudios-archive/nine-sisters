@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120221223807) do
+ActiveRecord::Schema.define(:version => 20120506230857) do
 
   create_table "article_versions", :force => true do |t|
     t.string   "title"
@@ -39,6 +39,28 @@ ActiveRecord::Schema.define(:version => 20120221223807) do
     t.string   "format"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "blog_posts", :force => true do |t|
+    t.integer  "blog_id"
+    t.string   "title"
+    t.string   "slug"
+    t.text     "contents"
+    t.string   "format"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "author_id"
+    t.boolean  "slug_lock"
+    t.string   "subtitle"
+  end
+
+  create_table "blogs", :force => true do |t|
+    t.string   "title"
+    t.string   "slug"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.boolean  "slug_lock"
+    t.text     "summary"
   end
 
   create_table "categories", :force => true do |t|
@@ -70,6 +92,7 @@ ActiveRecord::Schema.define(:version => 20120221223807) do
     t.string   "password_digest"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
   end
 
 end

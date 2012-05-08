@@ -1,0 +1,107 @@
+/* lib/assets/stylesheets/themes/default.css.scss */
+
+@import 'mixins/solarized';
+
+$themes_autumn_accent_image_url: image_url("themes/autumn/apple-red.png");
+$themes_autumn_accent_2_image_url: image_url("themes/autumn/apple-green.png");
+$themes_autumn_exclamation_image_url: image_url("themes/autumn/exclamation-mark.png");
+$themes_autumn_background_image_url: image_url("themes/autumn/background.png");
+$themes_autumn_background_2_image_url: image_url("themes/autumn/background-contrast.png");
+
+@mixin notice-box {
+  margin: 20px 0;
+  border-style: solid;
+  border-width: 2px;
+  padding: 10px 8px 6px;
+
+  p, ul { margin: 0; }
+
+  margin-top: 0;
+
+  > :first-child {
+    margin-top: 0;
+  } // @mixin notice-box > :first-child
+
+  > :last-child {
+    margin-bottom: 0;
+  } // @mixin notice-box > :last-child
+} // @mixin notice-box
+
+body.autumn {
+  background-color: $base3;
+  
+  #wrapper {
+    background-image: $themes_autumn_background_image_url;
+  } // body.day #wrapper
+  
+  /****************
+   *  Text Colors */
+  
+  color: $base00;
+  
+  .light {
+    color: $base0;
+  } // body.day .light
+  
+  .dark, strong, h1, h2, h3, h4, h5, h6 {
+    color: $base01;
+    
+    &.subtitle {
+      color: $base0;
+    } // [strong, h1, ...].subtitle
+  } // strong, h1, ...
+  
+  /* Link Colors */
+  
+  a { color: $green; }
+  
+  .warning, a.warning {
+    color: $red;
+  } // .warning
+  
+  /******************
+   *  Text Accents  */
+  
+  .accent { background-image: $themes_autumn_accent_image_url; }
+  .accent-2 { background-image: $themes_autumn_accent_2_image_url; }
+  .warning { background-image: $themes_autumn_exclamation_image_url; }
+  
+  .error-box {
+    @include notice-box;
+
+    border-color: $red;
+
+    strong.label { color: $red; }
+  } // .error-box
+
+  .warning-box {
+    @include notice-box;
+
+    border-color: $yellow;
+
+    strong.label { color: $yellow; }
+  } // .warning-box
+
+  .notice-box {
+    @include notice-box;
+
+    border-color: $green;
+
+    strong.label { color: $green; }
+  } // .warning-box
+  
+  /************
+   *  TABLES  */
+  
+  table { border-color: $base01 }  
+  
+  /***********
+   *  Forms  */
+  
+  .safe-link { background-image: $themes_autumn_accent_2_image_url }
+  .warning-link { background-image: $themes_autumn_accent_image_url; }
+  .danger-link {
+    background-image: $themes_autumn_exclamation_image_url;
+    background-position: 5px 9px;
+  } // body.autumn danger-link
+} // body.autumn

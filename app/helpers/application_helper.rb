@@ -49,4 +49,23 @@ module ApplicationHelper
     "<span class='light'>#{text}</span>".html_safe
   end # helper lighten
   private :lighten
+  
+  def ascii_escape(string)
+    output = ""
+    (0..(string.length - 1)).each do |index|
+      output << "&##{string[index].ord};"
+    end # each
+    output.html_safe
+  end # helper ascii_escape
+  
+  def preview(string, charlimit = 300)
+    return string if (charlimit == nil) || (charlimit <= 0)
+    output = ""
+    string.split(/\s+/).each do |substr|
+      (1 + output.length + substr.length) <= charlimit ?
+        output += " " + substr :
+        break
+    end # each
+    return output.html_safe
+  end # method preview
 end # module ApplicationHelper

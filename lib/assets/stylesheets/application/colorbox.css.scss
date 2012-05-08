@@ -1,4 +1,4 @@
-@import '../solarized/colours';
+@import '../themes/mixins/solarized';
 
 /**
  *  ColorBox Core Style:
@@ -67,6 +67,17 @@
     } // end #colorbox #cboxContent .cboxSlideshow_off #cboxSlideshow
   } // end #colorbox #cboxContent
 } // end #colorbox
+
+/* Default theme. */
+
+#cboxOverlay{ background:#000; }
+#cboxLoadingGraphic{ background:image-url('colorbox/loading-day.gif') no-repeat center center; }
+
+#colorbox #cboxContent {
+  .cboxIframe{ background:#fff; }
+  #cboxLoadedContent, #cboxLoadingOverlay { background:#fff}
+  #cboxTitle { color:#000 }
+} // #colorbox #cboxContent
 
 body {
   &.day {

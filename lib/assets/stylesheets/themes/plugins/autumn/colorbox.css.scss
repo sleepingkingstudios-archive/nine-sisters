@@ -1,0 +1,14 @@
+/* lib/assets/stylesheets/themes/plugins/autumn/colorbox.css.scss */
+
+@import '../../mixins/solarized-colours';
+
+body.autumn {
+  #cboxOverlay{ background:$base2; }
+  #cboxLoadingGraphic{ background:image-url('themes/autumn/plugins/colorbox/loading.gif') no-repeat center center; }
+
+  #colorbox #cboxContent {
+    .cboxIframe{ background:$base3; }
+    #cboxLoadedContent, #cboxLoadingOverlay { background: $base3 }
+    #cboxTitle { color: $base01 }
+  } // body.autumn #colorbox #cboxContent
+} // body.autumn

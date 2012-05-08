@@ -1,0 +1,86 @@
+-# app/views/home/test.html.haml
+
+/ %h1 Home#test
+/ %p Find me at app/views/home/test.html.haml
+
+%hgroup#article
+  %h1.title
+    Title #{lighten("(Heading 1)")}
+  %h2.subtitle Subtitle #{lighten("(Heading 2)")}
+
+%p
+  Introductory text. Sed ut perspiciatis unde omnis iste natus error sit
+  voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
+  quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
+  explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit
+  aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem
+  sequi nesciunt.
+  
+%h3 Navigation #{lighten("(Heading 4)")}
+%ul
+  %li.accent= link_to "Sample Article", "#article"
+  %li.null
+    %ul
+      %li.accent-2= link_to "Section 1", "#section-1"
+  %li.accent= link_to "Sample Form", "#form"
+
+%h2#section-1 Section 1 #{lighten("(Heading 2)")}
+%p
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eget ligula
+  purus. Class aptent taciti sociosqu ad litora torquent per conubia nostra,
+  per inceptos himenaeos. Phasellus nec sem mi, eu faucibus augue. Phasellus
+  pellentesque dui ac eros lacinia sit amet blandit nibh ullamcorper. Nam
+  iaculis libero eget nisi tempus ut mattis mauris placerat. Donec a odio et
+  metus lobortis egestas. Ut eget dolor quis justo fringilla congue in vel
+  odio.
+%p
+  Morbi iaculis aliquam diam sed fermentum. Duis id velit vel ipsum fermentum
+  bibendum in ut tellus. Sed velit magna, dignissim id malesuada ut, convallis
+  quis nibh. Phasellus ornare gravida neque, id pellentesque mauris dignissim
+  ac. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vitae
+  lectus erat.
+
+%h3#section-1-1 Sub-Section 1-1 #{lighten("(Heading 3)")}
+%p
+  Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur,
+  adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et
+  dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis
+  nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex
+  ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea
+  voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem
+  eum fugiat quo voluptas nulla pariatur?
+  
+%h4 Inner Heading #{lighten("(Heading 4)")}
+%p
+  At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
+  praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias
+  excepturi sint occaecati cupiditate non provident, similique sunt in culpa
+  qui officia deserunt mollitia animi, id est laborum et dolorum fuga. 
+  
+%h5 Small Inner Heading #{lighten "(Heading 5)"}
+%p
+  Et harum quidem rerum facilis est et expedita distinctio.
+
+%h2#form Sample Form
+
+= form_tag "#form" do
+  %table{ :style => "width: 100%;" }
+    %tbody
+      %tr
+        %td{ :style => "width: 180px;" }= label_tag :"", "Flux Capacitance:"
+        %td= text_field_tag :""
+      %tr
+        %td= label_tag :"", "Inverse Chronometrics:"
+        %td= text_field_tag :""
+      %tr
+        %td= label_tag :"", "Technomancy"
+        %td= select_tag :"", options_for_select([["Magic"], ["More Magic"]])
+      %tr
+        %td= label_tag :"", "Technobabble:"
+        %td= text_area_tag :""
+      %tr
+        %td &nbsp;
+        %td
+          = link_to "Safe Link", nil, :class => :"safe-link"
+          = link_to "Warning Link", nil, :class => :"warning-link"
+          = link_to "Danger Link", nil, :class => :"danger-link"

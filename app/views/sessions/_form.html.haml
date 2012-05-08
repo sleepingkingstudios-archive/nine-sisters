@@ -1,13 +1,31 @@
 -# app/views/sessions/_form.html.haml
 
+:javascript
+  jQuery(document).ready(function(event){
+    jQuery('a.submit-link').click(function(event){
+      var self = jQuery(this);
+      self.siblings("input[type=submit]").click();
+      event.preventDefault();
+    }); // end click
+    jQuery('a.cancel-link').click(function(event){
+      jQuery.colorbox.close();
+      event.preventDefault();
+    }); // end click
+  }); // end document.ready
+
 = form_tag :controller => :sessions, :action => :create do
-  %p
-    = label_tag "Email:"
-    = text_field_tag :email, nil, :class => (request.xhr? ? :short : nil)
-    %br
-    
-    = label_tag "Password:"
-    = password_field_tag :password, nil, :class => (request.xhr? ? :short : nil)
-    %br
-    
-    = submit_tag "Log In"
+  %table{ :style => "width: 300px;" }
+    %tbody
+      %tr
+        %td{ :style => "width: 50px;" }= label_tag "Email:"
+        %td= text_field_tag :email, nil, :class => (request.xhr? ? :short : nil)
+      %tr
+        %td= label_tag "Password:"
+        %td= password_field_tag :password, nil, :class => (request.xhr? ? :short : nil)
+      %tr
+        %td &nbsp;
+        %td
+          %br
+          = submit_tag nil, :style => "display: none;"
+          = link_to "Log In", nil, :class => :"safe-link submit-link"
+          = link_to "Cancel", nil, :class => :"warning-link cancel-link"

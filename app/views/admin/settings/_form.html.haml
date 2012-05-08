@@ -5,6 +5,8 @@
 
 - content_for :javascripts do
   :javascript
+    var __navigation_template__ = jQuery("table")
+    
     jQuery(document).ready(function(){
       function deleteHandler(event){
         var self = jQuery(this);
@@ -12,19 +14,46 @@
         event.preventDefault();
       } // end function deleteHandler
       
-      jQuery('.delete-link').click(deleteHandler); // end click
+      function moveUpHandler(event){
+        var self = jQuery(this).closest(".movable"),
+            parent = self.parent(),
+            index = self.index();
+        
+        if(index > 0) {
+          var target = parent.children().eq(index - 1);
+          
+          target.before(self);
+        } // end if
+        
+        event.preventDefault();
+      } // end function moveUpHandler
+      
+      function moveDownHandler(event){
+        var self = jQuery(this).closest(".movable"),
+            parent = self.parent(),
+            index = self.index();
+        
+        if(index < parent.children().length - 1) {
+          var target = parent.children().eq(index + 1);
+          
+          target.after(self);
+        } // end if
+        
+        event.preventDefault();
+      } // end function moveDownHandler
+      
+      jQuery('.delete-link').click(deleteHandler);
+      jQuery('.move-up-link').click(moveUpHandler);
+      jQuery('.move-down-link').click(moveDownHandler);
       
       jQuery('.add-navigation-item').click(function(event){
         var self = jQuery(this);
+        var str = "#{(render "navigation_setting", :width => 80).gsub(/"/, "\\\"").gsub(/\n/, "\\n")}";
         self.parent().siblings('.navigation-fields').append(function(){
-          var item = jQuery('<span>').addClass('navigation-field deletable').html('#{
-              label_tag(:"settings[navigation][][label]", "Label:", :class => :label) + " " +
-              text_field_tag(:"settings[navigation][][label]", nil, :class => :label) + " " +
-              label_tag(:"settings[navigation][][path]", "Path:", :class => :path) + " " +
-              text_field_tag(:"settings[navigation][][path]", nil, :class => :path) + " " +
-              link_to("Delete", nil, :class => :"apple delete-link")
-          }'); // end html
-          item.children('.delete-link').click(deleteHandler);
+          var item = jQuery(str);
+          item.find('.delete-link').click(deleteHandler);
+          item.find('.move-up-link').click(moveUpHandler);
+          item.find('.move-down-link').click(moveDownHandler);
           return item;
         }()); // end append
         event.preventDefault();
@@ -32,24 +61,28 @@
     }); // end document.ready
 
 = form_tag admin_settings_path, :method => :post do
-  %p
-    = label_tag :"settings[title]", "Title:"
-    = text_field_tag :"settings[title]", Setting[:title]
+  %table{ :style => "width: 100%;" }
+    %tbody
+      %tr
+        %td{ :style => "width: 80px;" }= label_tag :"settings[title]", "Title:"
+        %td= text_field_tag :"settings[title]", Setting[:title]
+      %tr
+        %td= label_tag :"settings[default-theme]", "Theme:"
+        %td= select_tag :"settings[default-theme]", |
+          options_for_select([["Autumn", :autumn], ["Starry Night", :"starry-night"]], Setting[:"default-theme"])
   
   %h3 Navigation
   %p
     %strong Note:
     Fields with empty labels or paths will ignored.
-  %p.navigation-fields
-    - (Setting[:navigation] || "").split(',').each do |item|
-      %span.navigation-field.deletable
-        = label_tag      :"settings[navigation][][label]", "Label:", :class => :label
-        = text_field_tag :"settings[navigation][][label]", item.split('=').first, :class => :label
-        = label_tag      :"settings[navigation][][path]", "Path:", :class => :path
-        = text_field_tag :"settings[navigation][][path]", item.split('=').last, :class => :path
-        = link_to        "Delete", nil, :class => :"apple delete-link"
+  %table.navigation-fields{ :style => "width: 100%;" }
+    - items = (Setting[:navigation] || "").split(',')
+    - if items.length > 0
+      - items.each do |item|
+        = render "navigation_setting", :item => item, :width => 80
+    - else
+      = render "navigation_setting"
       
-  %p= link_to "Add Navigation Item", nil, :class => :"apple add-navigation-item"
+  %p= link_to "Add Navigation Item", nil, :class => :"accent add-navigation-item"
     
-  %p
-    = submit_tag "Update Settings"
+  %p= submit_tag "Update Settings"

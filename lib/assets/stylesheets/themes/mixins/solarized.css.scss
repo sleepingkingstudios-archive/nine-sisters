@@ -1,0 +1,62 @@
+/* lib/assets/stylesheets/themes/mixins/solarized.css.scss */
+
+@import 'solarized-colours';
+
+@mixin notice-box {
+  margin: 20px 0;
+  border-style: solid;
+  border-width: 2px;
+  padding: 10px 8px 6px;
+
+  p, ul { margin: 0; }
+
+  margin-top: 0;
+
+  > :first-child {
+    margin-top: 0;
+  } // @mixin notice-box > :first-child
+
+  > :last-child {
+    margin-bottom: 0;
+  } // @mixin notice-box > :last-child
+} // @mixin notice-box
+
+@mixin action-link {
+  @include notice-box;
+  
+  display: inline-block;
+  padding-left: 26px;
+  
+  background: {
+    color: transparent;
+    position: 6px 6px;
+    repeat: no-repeat;
+  };
+  
+  cursor: pointer;
+  
+  &:hover {
+    text-decoration: underline;
+  } // .safe-link:hover
+} // @mixin action-link
+
+.safe-link {
+  @include action-link;
+  
+  border-color: $green;
+  color: $green !important;
+} // .safe-link
+
+.warning-link {
+  @include action-link;
+  
+  border-color: $yellow;
+  color: $yellow !important;
+} // .warning-link
+
+.danger-link {
+  @include action-link;
+  
+  border-color: $red;
+  color: $red !important;
+} // .danger-link

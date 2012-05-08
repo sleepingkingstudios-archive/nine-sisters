@@ -1,0 +1,15 @@
+-# app/views/admin/blogs/_list.html.haml
+
+- blogs ||= @blogs
+
+- blogs.each do |blog|
+  %h3= link_to blog.title, [:admin, blog]
+  
+  %p
+    - if blog.summary
+      = blog.summary
+    - else
+      = lighten("No Summary")
+  
+  %h4{ :class => :"no-margin" } Recent Activity
+  = render "recent_activity", :blog => blog

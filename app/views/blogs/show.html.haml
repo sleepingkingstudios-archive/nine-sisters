@@ -1,0 +1,25 @@
+-# app/views/blogs/show.html.haml
+
+/ %h1 Blogs#show
+/ %p Find me at app/views/blogs/show.html.haml
+
+%h1= @blog.title
+%p= @blog.summary
+
+- @posts = @blog.recent_posts
+%ul.no-margin
+  - @posts.each do |post|
+    %li.accent
+      %p
+        = link_to post.title, "/blog/#{post.slug}"
+        %br
+        Posted
+        = post.created_at.strftime("%A, %B %-d at %H:%M %Z")
+        by
+        - if post.author
+          = ascii_escape post.author.name
+        - else
+          = lighten("(no author)")
+      
+      = render 'blog_posts/contents', :post => post, :charlimit => 575,
+        :terminator => "... #{link_to "(Read More)", "/blog/#{post.slug}"}"

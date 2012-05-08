@@ -1,4 +1,4 @@
-module Admin::ArticlesHelper
+module Admin::OldArticlesHelper
   def article_status(article)
     if article.published?
       "Published"
@@ -50,4 +50,4 @@ module Admin::ArticlesHelper
     return items.join(config[:separator]).html_safe
   end # helper article_actions
   private :article_actions
-end # module Admin::ArticlesHelper
+end # module Admin::OldArticlesHelper

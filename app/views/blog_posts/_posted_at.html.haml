@@ -1,0 +1,13 @@
+-# app/views/blog_posts/_posted_at.html.haml
+
+/ %h2 BlogPosts#_posted_at
+/ %p Find me at app/views/blog_posts/_posted_at.html.haml
+
+- post ||= @post
+Posted
+= post.created_at.strftime("%A, %B %-d at %H:%M %Z")
+by
+- if post.author
+  = ascii_escape post.author.email
+- else
+  = lighten("(no author)")

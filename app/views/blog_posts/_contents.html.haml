@@ -1,0 +1,19 @@
+-# app/views/blog_posts/_contents.html.haml
+
+/ %h2 BlogPosts#_contents
+/ %p Find me at app/views/blog_posts/_contents.html.haml
+
+- post ||= @post
+- charlimit ||= 0
+- terminator ||= "..."
+
+- case post.format
+- when "plain-text"
+  - contents = post.contents
+- when "redcarpet"
+  - contents = Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(post.contents)
+%p
+  - if charlimit != nil && charlimit > 0 && post.contents.length > charlimit
+    = preview(contents, charlimit - terminator.length) + terminator.html_safe
+  - else
+    = contents.html_safe

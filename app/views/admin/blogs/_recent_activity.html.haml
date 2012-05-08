@@ -1,0 +1,16 @@
+-# app/views/admin/blogs/_recent_activity.html.haml
+
+/ %h2 Admin::Blogs/_recent_activity
+/ %p Find me at app/views/admin/blogs/_recent_activity.html.haml
+
+- blog ||= @blog
+- recent = blog.recent_posts
+- if recent.count > 0
+  %ul
+    - recent.each do |post|
+      %li.accent
+        #{link_to post.title, admin_blog_post_path(blog, post)},
+        posted
+        = post.updated_at
+- else
+  %p= lighten("No Recent Activity")

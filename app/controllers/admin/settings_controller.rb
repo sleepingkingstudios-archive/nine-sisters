@@ -1,6 +1,4 @@
-class Admin::SettingsController < ApplicationController
-  before_filter :authenticate_user
-  
+class Admin::SettingsController < Admin::AdminController
   # GET /admin/settings
   def index
     @settings = Setting.all

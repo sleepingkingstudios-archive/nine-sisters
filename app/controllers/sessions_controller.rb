@@ -5,10 +5,11 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
       append_flash :notice, "You have successfully logged in as #{params[:email]}.", true
-      redirect_to :root
     else
-      render :action => "new"
+      append_flash :error, "Unable to authenticate user #{params[:email]}", true
     end # if-else
+    
+    redirect_to :root
   end # action create
   
   # DELETE /session
@@ -20,6 +21,10 @@ class SessionsController < ApplicationController
   
   # GET /session/new
   def new
-    render :layout => !request.xhr?
+    if request.xhr?
+      render :layout => false
+    else
+      redirect_to :root
+    end # if-else
   end # action new
 end # controller Sessions

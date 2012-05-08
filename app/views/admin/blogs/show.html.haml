@@ -1,0 +1,25 @@
+-# app/views/admin/blogs/show.html.haml
+
+/ %h1 Admin/Blogs::show
+/ %p Find me at app/views/admin/blogs/show.html.haml
+
+%h1 Show Blog
+
+%p
+  %strong Title:
+  = @blog.title
+  %br
+  
+  %strong Slug:
+  = @blog.slug
+
+%h2 Summary
+%p= @blog.summary
+
+%p= link_to "New Post", new_admin_blog_post_path(@blog), :class => :accent
+
+%h2 Recent Activity
+
+= render "recent_activity"
+
+%p= link_to "See All Posts", "/blogs/#{@blog.id}/blog_posts", :class => :apple

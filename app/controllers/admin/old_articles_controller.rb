@@ -1,4 +1,4 @@
-class Admin::ArticlesController < ApplicationController
+class Admin::OldArticlesController < ApplicationController
   before_filter :authenticate_user
   
   # POST /admin/articles
@@ -97,4 +97,4 @@ class Admin::ArticlesController < ApplicationController
     append_flash :notice, "Article was successfully updated", true
     redirect_to [:admin, @article]
   end # action update
-end # controller Admin::ArticlesController
+end # controller Admin::OldArticlesController

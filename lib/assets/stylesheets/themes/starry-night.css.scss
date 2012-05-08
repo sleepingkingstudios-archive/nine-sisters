@@ -1,0 +1,107 @@
+/* lib/assets/stylesheets/themes/starry-night.css.scss */
+
+@import 'mixins/solarized';
+
+$themes_starry_night_accent_image_url: image_url("themes//starry-night/star.png");
+$themes_starry_night_accent_2_image_url: image_url("themes/starry-night/moon.png");
+$themes_starry_night_exclamation_image_url: image_url("themes/starry-night/exclamation-mark.png");
+$themes_starry_night_background_image_url: image_url("themes/starry-night/background.png");
+$themes_starry_night_background_2_image_url: image_url("themes/starry-night/background-contrast.png");
+
+@mixin notice-box {
+  margin: 20px 0;
+  border-style: solid;
+  border-width: 2px;
+  padding: 10px 8px 6px;
+
+  p, ul { margin: 0; }
+
+  margin-top: 0;
+
+  > :first-child {
+    margin-top: 0;
+  } // @mixin notice-box > :first-child
+
+  > :last-child {
+    margin-bottom: 0;
+  } // @mixin notice-box > :last-child
+} // @mixin notice-box
+
+body.starry-night {
+  background-color: $base03;
+  
+  #wrapper {
+    background-image: $themes_starry_night_background_image_url;
+  } // body.night #wrapper
+  
+  /***************\
+  \* Text Colors */
+  
+  color: $base0;
+  
+  .light {
+    color: $base00;
+  } // body.night .light
+  
+  .dark, strong, h1, h2, h3, h4, h5, h6 {
+    color: $base1;
+    
+    &.subtitle {
+      color: $base0;
+    } // [strong, h1, ...].subtitle
+  } // strong, h1, ...
+  
+  /* Link Colors */
+  
+  a { color: $yellow; }
+  
+  .warning, body a.warning {
+    color: $red;
+  } // .warning
+  
+  /******************
+   *  Text Accents  */
+  
+  .accent { background-image: $themes_starry_night_accent_image_url; }
+  .accent-2 { background-image: $themes_starry_night_accent_2_image_url; }
+  .warning { background-image: $themes_starry_night_exclamation_image_url }
+
+  .error-box {
+    @include notice-box;
+
+    border-color: $red;
+
+    strong.label { color: $red; }
+  } // .error-box
+
+  .warning-box {
+    @include notice-box;
+
+    border-color: $yellow;
+
+    strong.label { color: $yellow; }
+  } // .warning-box
+
+  .notice-box {
+    @include notice-box;
+
+    border-color: $green;
+
+    strong.label { color: $green; }
+  } // .warning-box
+  
+  /************
+   *  Tables  */
+  
+  table { border-color: $base1 }
+  
+  /***********
+   *  Forms  */
+   
+  .safe-link { background-image: $themes_starry_night_accent_image_url; }
+  .warning-link { background-image: $themes_starry_night_accent_2_image_url; }
+  .danger-link {
+    background-image: $themes_starry_night_exclamation_image_url;
+    background-position: 3px 7px;
+  } // body.starry-night danger-link
+} // body.starry-night

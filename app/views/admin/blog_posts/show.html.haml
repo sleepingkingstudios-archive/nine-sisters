@@ -1,0 +1,36 @@
+-# app/views/admin/blog_posts/show.html.haml
+
+/ %h1 Admin/BlogPosts::show
+/ %p Find me at app/views/admin/blog_posts/show.html.haml
+
+%h1 Show Blog Post
+
+%p
+  %strong Title:
+  = @post.title
+  %br
+  
+  %strong Slug:
+  = @post.slug
+  %br
+  
+  %strong Last Updated:
+  = @post.updated_at
+  %br
+  
+  %strong Format:
+  = @post.format
+  
+- case @post.format
+- when "plain-text"
+  %p= @post.contents
+- when "redcarpet"
+  :redcarpet
+    #{@post.contents}
+- else
+  = @post.contents
+
+%p
+  = link_to "Edit Post", edit_admin_blog_post_path(@blog, @post), :class => :accent
+  %br
+  = link_to "Back to #{@blog.title}", [:admin, @blog], :class => :"accent"

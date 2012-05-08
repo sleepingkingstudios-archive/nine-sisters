@@ -5,6 +5,16 @@
         href: "#{new_user_path}"
       }); // end colorbox
     } // end anonymous function
+    
+    jQuery(document).ready(function(){
+      jQuery('a.author-read-more').click(function(event){
+        event.preventDefault();
+        var self = jQuery(this);
+        
+        self.hide();
+        self.parent().siblings('div.author-bio').show(300);
+      }); // end click
+    }); // end ready
 
 / %h1 Home#index
 / %p Find me in app/views/home/index.html.haml
@@ -30,7 +40,39 @@
   = link_to "Solarized", "http://ethanschoonover.com/solarized"
   theme, by Ethan Schoonover.
 
-%h2 About Sleeping King Studios  
+%h2 About the Author
+%p= lighten("(with apologies to Sir J.M. Barrie and J. Michael Straczynski)")
+
+%h3 Who Are You?
+%p
+  My name is Rob Smith, I am an engineer (by training) and a programmer (by
+  trade). I currently work as a Flash developer for Fantage.com and work on
+  various projects in my spare time, some of which I hope to showcase here.
+%p= link_to "More About the Author".html_safe, "#", :class => :"accent author-read-more"
+
+%div.author-bio{ :style => "display: none;" }
+  %h3 What Do You Want?
+  %p
+    To put smiles on people's faces. To tell stories that entertain, enlighten,
+    and explore the intersections and boundaries of narrative and play. Or, in
+    the words of Sharon Apple:
+  %blockquote
+    "It's what you want to give to each person. Your feelings, the feelings you
+    believe they should have. To give to the one you love her greatest dreams.
+    To give her the ultimate emotion - the feeling of total life, a vision of
+    all the world's colours at once. That is the reason for my existence."
+  
+  %h3 Where Are You Going?
+  %p
+    Second star to the right, and straight on 'till morning.
+  
+  %h3 Who Do You Serve, And Who Do You Trust?
+  %p
+    I am currently working as a Flash developer for Fantage.com, building games
+    and content for their online platform, although someday I would like to
+    transition from development into game design.
+
+%h2 About Sleeping King Studios
 %p
   You may be thinking that one designer on a laptop does not a
   &ldquo;studios&rdquo; make. You, sir or ma'am, are absolutely correct. But I
