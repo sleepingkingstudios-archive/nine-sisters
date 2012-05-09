@@ -3,7 +3,7 @@
  *= require_self
  */
 
-@import '../solarized/colours';
+@import '../themes/mixins/solarized-colours';
 
 table.articles-table {
   td, th {

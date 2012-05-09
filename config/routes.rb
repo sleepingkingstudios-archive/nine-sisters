@@ -1,5 +1,5 @@
 NineSisters::Application.routes.draw do
-  root :to => "blogs#show", :id => Blog.first.id
+  root :to => "blogs#show", :id => (Blog.count > 0 ? Blog.first.id : 0)
   
   namespace :admin do
     # resources :articles, :only => %w(create destroy edit index new show update) do
@@ -22,8 +22,8 @@ NineSisters::Application.routes.draw do
   resource :user, :only => %w(create new)
   resource :session, :only => %w(create destroy new)
   
-  get "/blog/:slug" => "blog_posts#show", :blog_id => Blog.first.id
-  get "/blog" => "blogs#show", :id => Blog.first.id
+  get "/blog/:slug" => "blog_posts#show", :blog_id => (Blog.count > 0 ? Blog.first.id : 0)
+  get "/blog" => "blogs#show", :id => (Blog.count > 0 ? Blog.first.id : 0)
   
   # get "*path/:feature" => "categories#find"
   # get ":feature" => "categories#find"
