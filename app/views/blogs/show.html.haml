@@ -10,9 +10,9 @@
 %ul.no-margin
   - @posts.each do |post|
     %li.accent
-      %p
+      %h4
         = link_to post.title, "/blog/#{post.slug}"
-        %br
+      %p
         Posted
         = post.created_at.strftime("%A, %B %-d at %H:%M %Z")
         by
