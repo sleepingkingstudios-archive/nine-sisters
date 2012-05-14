@@ -5,9 +5,9 @@
 
 - post ||= @post
 Posted
-= post.created_at.strftime("%A, %B %-d at %H:%M %Z")
+= post.published_at.strftime("%A, %B %-d at %H:%M %Z")
 by
 - if post.author
-  = ascii_escape post.author.email
+  = ascii_escape post.author.name
 - else
   = lighten("(no author)")

@@ -10,7 +10,9 @@ NineSisters::Application.routes.draw do
     # end # resources articles
     
     resources :blogs, :only => %w(index show) do
-      resources :posts, :controller => "blog_posts", :only => %w(create destroy edit new show update)
+      resources :posts, :controller => "blog_posts", :only => %w(create destroy edit new show update) do
+        get :publish, :on => :member
+      end # resources posts
     end # resources blogs
     
     resources :categories, :only => %w(create destroy edit index new show update)

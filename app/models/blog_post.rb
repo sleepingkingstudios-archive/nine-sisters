@@ -10,10 +10,14 @@ class BlogPost < ActiveRecord::Base
   # - slug_lock:boolean (acts_as_sluggable)
   # - contents:text
   # - format:string
+  # - published:boolean
   # - created_at:datetime
   # - updated_at:datetime
+  # - published_at:datetime
   
   acts_as_sluggable :title, :allow_lock => true, :callback_method => :to_slug
+  
+  scope :published, lambda { where(:published => true).where("published_at < ?", Time.zone.now ).order("published_at DESC") }
   
   #########################################
   # Associations, Validations and Callbacks
@@ -54,6 +58,12 @@ class BlogPost < ActiveRecord::Base
   def format=(value)
     super(value.to_s.underscore.gsub(/[\s_]+/,'-'))
   end # mutator format=
+  
+  def publish!
+    self.published = true
+    self.published_at = DateTime.now
+    self.save
+  end # method publish!
   
   def to_slug
     source = self.title

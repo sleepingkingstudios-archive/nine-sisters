@@ -1,6 +1,6 @@
 class Admin::BlogPostsController < ApplicationController
   before_filter :build_post, :only => %w(create new)
-  before_filter :find_post,  :only => %w(destroy edit show update)
+  before_filter :find_post,  :only => %w(destroy edit publish show update)
   
   # POST /admin/blogs/:blog_id/posts
   def create
@@ -29,6 +29,17 @@ class Admin::BlogPostsController < ApplicationController
   
   # GET /admin/blogs/:blog_id/posts/new
   def new; end
+  
+  # PUT /admin/blogs/:blog_id/posts/:id/publish
+  def publish
+    if @post.publish!
+      append_flash :notice, "Post was successfully published", true
+      redirect_to admin_blog_post_path(@blog, @post) and return
+    else
+      append_flash :error, "Unable to publish post", true
+      redirect_to edit_admin_blog_post_path(@blog, @post) and return
+    end # if-else
+  end # action publish
   
   # GET /admin/blogs/:blog_id/posts/:id
   def show; end
