@@ -56,7 +56,7 @@
         %td= form.text_field :slug, :disabled => true
       %tr
         %td= form.label :format, "Format:"
-        %td= form.select :format, options_for_select(BlogPost.formats, post.format)
+        %td= form.select :format, options_for_select(BlogPost.formats, post.format || "redcarpet")
       %tr
         %td= form.label :contents, "Contents:"
         %td= form.text_area :contents, :style => "width: 100%;"
