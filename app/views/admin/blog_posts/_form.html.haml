@@ -64,7 +64,7 @@
         %td &nbsp;
         %td
           = form.submit submit_text, :style => "display: none;"
-          = link_to submit_text, nil, :class => :"safe-link submit-link"
-          = link_to cancel_text, cancel_path, :class => :"warning-link"
+          = link_to submit_text, nil, :class => :"safe-button submit-link"
+          = link_to cancel_text, cancel_path, :class => :"warning-button"
           - if params[:action] == "edit" || params[:action] == "update"
-            = link_to "Delete Post", admin_blog_post_path(blog, post), :method => :delete, :class => :"danger-link"
+            = link_to "Delete Post", admin_blog_post_path(blog, post), :method => :delete, :class => :"danger-button"

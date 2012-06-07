@@ -98,10 +98,10 @@ body.starry-night {
   /***********
    *  Forms  */
    
-  .safe-link { background-image: $themes_starry_night_accent_image_url; }
-  .warning-link { background-image: $themes_starry_night_accent_2_image_url; }
-  .danger-link {
+  .safe-button { background-image: $themes_starry_night_accent_image_url; }
+  .warning-button { background-image: $themes_starry_night_accent_2_image_url; }
+  .danger-button {
     background-image: $themes_starry_night_exclamation_image_url;
     background-position: 3px 7px;
-  } // body.starry-night danger-link
+  } // body.starry-night danger-button
 } // body.starry-night

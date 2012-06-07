@@ -1,0 +1,9 @@
+-# app/views/admin/blog_posts/index.html.haml
+
+%h1 Blog Posts Index
+
+%p= link_to "New Post", new_admin_blog_post_path(@blog), :class => :"accent"
+
+= render 'admin/blog_posts/table', :blog => @blog, :posts => @posts
+
+%p= link_to "Back to #{@blog.title}", admin_blog_path(@blog), :class => :"accent"

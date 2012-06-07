@@ -1,0 +1,25 @@
+-# app/views/admin/blog_posts/_table.html.haml
+
+- blog  ||= @blog
+- posts ||= @posts
+
+%table
+  %thead
+    %tr
+      %th Title
+      %th Subtitle
+      %th Published
+      %th{ :colspan => 3 } Actions
+  %tbody
+    - posts.each do |post|
+      %tr
+        %td= link_to post.title, admin_blog_post_path(blog, post)
+        %td= post.subtitle || "&nbsp".html_safe;
+        %td= post.published ? "Yes" : "No"
+        %td= link_to "Edit", edit_admin_blog_post_path(blog, post)
+        %td
+          - if post.published
+            Publish
+          - else
+            = link_to "Publish", publish_admin_blog_post_path(blog, post)
+        %td= link_to "Delete", admin_blog_post_path(blog, post), :method => :delete, :class => :"danger-link"

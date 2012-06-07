@@ -59,6 +59,10 @@ class BlogPost < ActiveRecord::Base
     super(value.to_s.underscore.gsub(/[\s_]+/,'-'))
   end # mutator format=
   
+  def next_post
+    return self.blog.posts.where("id > #{self.id}").order("published_at DESC").limit(1).first
+  end # method next_post
+  
   def publish!
     self.published = true
     self.published_at = DateTime.now

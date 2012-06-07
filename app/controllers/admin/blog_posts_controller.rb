@@ -1,6 +1,7 @@
 class Admin::BlogPostsController < ApplicationController
   before_filter :build_post, :only => %w(create new)
   before_filter :find_post,  :only => %w(destroy edit publish show update)
+  before_filter :find_post_collection, :only => %w(index)
   
   # POST /admin/blogs/:blog_id/posts
   def create
@@ -18,7 +19,7 @@ class Admin::BlogPostsController < ApplicationController
     @blog.posts.destroy(@post)
     
     append_flash :warning, "Post was successfully deleted", true
-    redirect_to admin_blog_path(@blog)
+    redirect_to admin_blog_posts_path(@blog)
   end # action destroy
   
   # GET /admin/blogs/:blog_id/posts/:id/edit

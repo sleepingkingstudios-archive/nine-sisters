@@ -10,8 +10,11 @@
 %ul.no-margin
   - @posts.each do |post|
     %li.accent
-      %h4
-        = link_to post.title, "/blog/#{post.slug}"
+      %hgroup
+        %h4
+          = link_to post.title, "/blog/#{post.slug}"
+        - unless post.subtitle.nil?
+          %h5.subtitle= post.subtitle
       %p
         Posted
         = post.published_at.strftime("%A, %B %-d at %H:%M %Z")
@@ -20,6 +23,6 @@
           = ascii_escape post.author.name
         - else
           = lighten("(no author)")
-      
-      = render 'blog_posts/contents', :post => post, :charlimit => 575,
-        :terminator => "... #{link_to "(Read More)", "/blog/#{post.slug}"}"
+      .post-preview
+        = render 'blog_posts/contents', :post => post, :charlimit => 575,
+          :terminator => "... #{link_to "(Read More)", "/blog/#{post.slug}"}"

@@ -23,7 +23,7 @@
   %br
   
   %strong Published:
-  = @post.published
+  = @post.published ? "yes" : "no"
   - if !@post.published
     |
     = link_to "Publish Post", publish_admin_blog_post_path(@blog, @post)

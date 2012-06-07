@@ -2,6 +2,10 @@
 
 @import 'solarized-colours';
 
+.safe-link    { color: $green  !important; }
+.warning-link { color: $yellow !important; }
+.danger-link  { color: $red    !important; }
+
 @mixin notice-box {
   margin: 20px 0;
   border-style: solid;
@@ -21,7 +25,7 @@
   } // @mixin notice-box > :last-child
 } // @mixin notice-box
 
-@mixin action-link {
+@mixin action-button {
   @include notice-box;
   
   display: inline-block;
@@ -31,7 +35,7 @@
     color: transparent;
     position: 6px 6px;
     repeat: no-repeat;
-  };
+  }; // background property
   
   cursor: pointer;
   
@@ -40,23 +44,23 @@
   } // .safe-link:hover
 } // @mixin action-link
 
-.safe-link {
-  @include action-link;
+.safe-button {
+  @include action-button;
   
   border-color: $green;
   color: $green !important;
-} // .safe-link
+} // .safe-button
 
-.warning-link {
-  @include action-link;
+.warning-button {
+  @include action-button;
   
   border-color: $yellow;
   color: $yellow !important;
-} // .warning-link
+} // .warning-button
 
-.danger-link {
-  @include action-link;
+.danger-button {
+  @include action-button;
   
   border-color: $red;
   color: $red !important;
-} // .danger-link
+} // .danger-button

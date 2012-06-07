@@ -21,7 +21,7 @@ class Blog < ActiveRecord::Base
   # Association Scopes
   
   def recent_posts(limit = 5)
-    self.posts.published.limit(limit)
+    self.posts.published.limit(limit).order('published_at')
   end # method recent_posts
   
   ##################

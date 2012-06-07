@@ -98,10 +98,10 @@ body.autumn {
   /***********
    *  Forms  */
   
-  .safe-link { background-image: $themes_autumn_accent_2_image_url }
-  .warning-link { background-image: $themes_autumn_accent_image_url; }
-  .danger-link {
+  .safe-button { background-image: $themes_autumn_accent_2_image_url }
+  .warning-button { background-image: $themes_autumn_accent_image_url; }
+  .danger-button {
     background-image: $themes_autumn_exclamation_image_url;
     background-position: 5px 9px;
-  } // body.autumn danger-link
+  } // body.autumn danger-button
 } // body.autumn

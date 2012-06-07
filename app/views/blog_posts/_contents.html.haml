@@ -13,7 +13,9 @@
 - when "redcarpet"
   - contents = Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(post.contents)
 %p
-  - if charlimit != nil && charlimit > 0 && post.contents.length > charlimit
+  - if nil == contents
+    = lighten "(no contents)"
+  - elsif charlimit != nil && charlimit > 0 && post.contents.length > charlimit
     = preview(contents, charlimit - terminator.length) + terminator.html_safe
   - else
     = contents.html_safe

@@ -15,6 +15,16 @@
   };
 } // .accent, .accent-2, .warning
 
+strong {
+  font-weight: bold;
+} // strong
+
+sup {
+  font-size: $s_script_font_size;
+  line-height: $s_script_font_size;
+  vertical-align: top;
+} // sup
+
 /**************
  *  Headings  */
 
@@ -171,3 +181,10 @@ textarea {
   
   width: 100%;
 } // textarea
+
+.post-preview {
+  h1, h2, h3, h4, h5, h6 {
+    font-size:   $body_font_size;
+    line-height: $body_line_height;
+  } // .post-preview [h1, h2, ...]
+} // post-preview

@@ -5,8 +5,10 @@ $rho:    1.272; /* The positive square root of phi. */
 
 $page_width: 940px;
 
-$body_font_size:   15px;
+$body_font_size:   16px;
 $body_line_height: round($body_font_size * $rho);
+
+$s_script_font_size: $body_font_size / $rho;
 
 $heading_font_size:   $body_font_size;
 $heading_line_height: $body_line_height;

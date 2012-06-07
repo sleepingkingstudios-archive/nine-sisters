@@ -16,6 +16,7 @@ end # group :assets
 gem 'haml'
 gem 'haml-rails'
 gem 'jquery-rails'
+gem 'maruku'
 gem 'redcarpet'
 
 gem 'acts_as_sluggable', '>= 0.1.1', :git => 'git@github.com:sleepingkingstudios/acts_as_sluggable.git'
