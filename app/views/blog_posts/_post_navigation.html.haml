@@ -1,0 +1,20 @@
+-# app/views/blog_posts/_post_navigation.html
+
+- blog ||= @blog
+- post ||= @post
+- prev_post = post.prev_post
+- next_post = post.next_post
+
+%div
+  %p{ :style => "float: left; width: 25%;" }
+    - if prev_post.nil?
+      = lighten "Previous Post"
+    - else
+      = link_to "Previous Post", "/blog/#{prev_post.slug}", :class => :accent
+  %p{ :style => "float: right; text-align: right; width: 25%;" }
+    - if next_post.nil?
+      = lighten "Next Post"
+    - else
+      = link_to "Next Post", "/blog/#{next_post.slug}", :class => :accent
+  %p{ :style => "text-align: center;" }
+    = link_to "Back to #{blog.title}", blog_path(blog), :class => :accent

@@ -60,8 +60,16 @@ class BlogPost < ActiveRecord::Base
   end # mutator format=
   
   def next_post
-    return self.blog.posts.where("id > #{self.id}").order("published_at DESC").limit(1).first
+    (posts = self.blog.posts.order("published_at ASC")).each_with_index do |post, index|
+      return posts[index + 1] if self == post
+    end # each
   end # method next_post
+  
+  def prev_post
+    (posts = self.blog.posts.order("published_at DESC")).each_with_index do |post, index|
+      return posts[index + 1] if self == post
+    end # each
+  end # method prev_post
   
   def publish!
     self.published = true

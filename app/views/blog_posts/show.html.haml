@@ -4,11 +4,12 @@
 / %p Find me at app/views/blog_posts/show.html.haml
 
 %hgroup
-  %h1.title= @blog.title
-  %h2.title= @post.title
-  %h3.subtitle= @post.subtitle
+  %h1.title= @post.title
+  %h2.subtitle= @post.subtitle
 %p= render "blog_posts/posted_at", :post => @post
+
+= render 'post_navigation'
 
 = render 'contents', :charlimit => nil
 
-%p= link_to "Back to #{@blog.title}", "/blog", :class => :accent
+= render 'post_navigation'
