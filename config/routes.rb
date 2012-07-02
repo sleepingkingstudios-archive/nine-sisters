@@ -24,7 +24,8 @@ NineSisters::Application.routes.draw do
   resource :user, :only => %w(create new)
   resource :session, :only => %w(create destroy new)
   
-  get "/blog/:slug" => "blog_posts#show", :blog_id => 1
+  get "/blog/pages/:page_id" => "blogs#show", :id => 1
+  get "/blog/posts/:post_id" => "blog_posts#show", :blog_id => 1
   get "/blog" => "blogs#show", :id => 1
   
   # get "*path/:feature" => "categories#find"

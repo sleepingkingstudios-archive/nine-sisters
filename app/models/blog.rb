@@ -14,14 +14,14 @@ class Blog < ActiveRecord::Base
   #########################################
   # Associations, Validations and Callbacks
   
-  has_many :posts, :class_name => "BlogPost", :dependent => :destroy
+  has_many :posts, :class_name => "BlogPost", :dependent => :destroy, :order => :created_at
   
   validates :title, :presence => true
   
   # Association Scopes
   
   def recent_posts(limit = 5)
-    self.posts.published.limit(limit).order('published_at')
+    self.posts.published.limit(limit)
   end # method recent_posts
   
   ##################

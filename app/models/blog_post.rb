@@ -17,7 +17,7 @@ class BlogPost < ActiveRecord::Base
   
   acts_as_sluggable :title, :allow_lock => true, :callback_method => :to_slug
   
-  scope :published, lambda { where(:published => true).where("published_at < ?", Time.zone.now ).order("published_at DESC") }
+  scope :published, lambda { where(:published => true).where("published_at < ?", Time.zone.now ).reorder("published_at DESC") }
   
   #########################################
   # Associations, Validations and Callbacks
@@ -59,17 +59,25 @@ class BlogPost < ActiveRecord::Base
     super(value.to_s.underscore.gsub(/[\s_]+/,'-'))
   end # mutator format=
   
+  def last_post
+    self.blog.posts.order("published_at DESC").limit(1).last
+  end # method last_post
+  
   def next_post
-    (posts = self.blog.posts.order("published_at ASC")).each_with_index do |post, index|
+    (posts = self.blog.posts.reorder("published_at ASC")).each_with_index do |post, index|
       return posts[index + 1] if self == post
     end # each
   end # method next_post
   
   def prev_post
-    (posts = self.blog.posts.order("published_at DESC")).each_with_index do |post, index|
+    (posts = self.blog.posts.reorder("published_at DESC")).each_with_index do |post, index|
       return posts[index + 1] if self == post
     end # each
   end # method prev_post
+  
+  def first_post
+    self.blog.posts.order("published_at ASC").limit(1).first
+  end # method first_post
   
   def publish!
     self.published = true

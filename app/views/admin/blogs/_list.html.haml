@@ -11,7 +11,10 @@
     - else
       = lighten("No Summary")
   
-  %p= link_to "View All Posts", admin_blog_posts_path(blog), :class => :accent
+  %p
+    = link_to "New Post", new_admin_blog_post_path(blog), :class => :accent
+    |
+    = link_to "View All Posts", admin_blog_posts_path(blog)
   
   %h4{ :class => :"no-margin" } Recent Activity
   = render "recent_activity", :blog => blog

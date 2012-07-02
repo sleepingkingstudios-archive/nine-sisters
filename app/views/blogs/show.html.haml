@@ -6,13 +6,14 @@
 %h1= @blog.title
 %p= @blog.summary
 
-- @posts = @blog.recent_posts
+= render 'page_navigation'
+
 %ul.no-margin
   - @posts.each do |post|
     %li.accent
       %hgroup
         %h4
-          = link_to post.title, "/blog/#{post.slug}"
+          = link_to post.title, "/blog/posts/#{post.slug}"
         - unless post.subtitle.nil?
           %h5.subtitle= post.subtitle
       %p
@@ -24,5 +25,7 @@
         - else
           = lighten("(no author)")
       .post-preview
-        = render 'blog_posts/contents', :post => post, :charlimit => 575,
+        = render 'blog_posts/contents', :post => post, :charlimit => 1000,
           :terminator => "... #{link_to "(Read More)", "/blog/#{post.slug}"}"
+          
+= render 'page_navigation'

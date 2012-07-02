@@ -13,14 +13,15 @@
   %strong Slug:
   = @blog.slug
 
-%p= link_to "View All Posts", admin_blog_posts_path(@blog), :class => :accent
-
 %p
   %strong Summary:
   %br
   = @blog.summary
 
-%p= link_to "New Post", new_admin_blog_post_path(@blog), :class => :accent
+  %p
+    = link_to "New Post", new_admin_blog_post_path(@blog), :class => :accent
+    |
+    = link_to "View All Posts", admin_blog_posts_path(@blog)
 
 %h2 Recent Activity
 
