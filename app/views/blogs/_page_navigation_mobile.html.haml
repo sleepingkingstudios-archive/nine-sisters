@@ -1,0 +1,28 @@
+-# app/views/blogs/_page_navigation_mobile.html
+
+- blog ||= @blog
+- current_page ||= params[:page_id].to_i || 0
+- max_pages ||= (@posts_count / 5.0).floor
+
+%div
+  %p.no-margin{ :style => "float: left; width: 30%;" }
+    - if max_pages == current_page
+      = lighten "First"
+      |
+      = lighten "Prev"
+    - else
+      = link_to "First", "/blog/pages/#{max_pages}"
+      |
+      = link_to "Prev", "/blog/pages/#{current_page + 1}"
+  %p.no-margin{ :style => "float: right; text-align: right; width: 30%;" }
+    - if 0 == current_page
+      = lighten "Next"
+      |
+      = lighten "Latest"
+    - else
+      = link_to "Next", "/blog/pages/#{current_page - 1}"
+      |
+      = link_to "Latest", "/blog/pages/0"
+  %p.no-margin{ :style => "text-align: center;" }
+    = blog.title
+  %br{ :style => "clear: both;" }

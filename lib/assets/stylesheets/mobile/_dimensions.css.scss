@@ -1,0 +1,22 @@
+/*  lib/assets/stylesheets/desktop/_dimensions.css.scss  */
+
+$page_max_width: 640px;
+
+$phi:    1.618; /* The mean of Phidias. */
+$rho:    1.272; /* The positive square root of phi. */
+
+$body_font_size:   16px;
+$body_line_height: round($body_font_size * $rho);
+
+$s_script_font_size: $body_font_size / $rho;
+
+$heading_font_size:   $body_font_size;
+$heading_line_height: $body_line_height;
+
+$pi: 1/$rho;
+@for $i from 1 to 5 {
+  $pi: if($pi, $pi, 1/$rho) * $rho;
+  
+  $heading_font_size:   join(round($body_font_size * $pi),   $heading_font_size);
+  $heading_line_height: join(round($body_line_height * $pi), $heading_line_height);
+} /* end for */

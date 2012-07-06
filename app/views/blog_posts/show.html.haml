@@ -8,8 +8,8 @@
   %h2.subtitle= @post.subtitle
 %p= render "blog_posts/posted_at", :post => @post
 
-= render 'post_navigation'
+= render mobile? ? 'post_navigation_mobile' : 'post_navigation'
 
 = render 'contents', :charlimit => nil
 
-= render 'post_navigation'
+= render mobile? ? 'post_navigation_mobile' : 'post_navigation'

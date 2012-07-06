@@ -2,9 +2,9 @@
 
 @import 'mixins/solarized';
 
-$themes_starry_night_accent_image_url: image_url("themes//starry-night/star.png");
-$themes_starry_night_accent_2_image_url: image_url("themes/starry-night/moon.png");
-$themes_starry_night_exclamation_image_url: image_url("themes/starry-night/exclamation-mark.png");
+$themes_starry_night_accent_image_path: "themes//starry-night/star.png";
+$themes_starry_night_accent_2_image_path: "themes/starry-night/moon.png";
+$themes_starry_night_exclamation_image_path: "themes/starry-night/exclamation-mark.png";
 $themes_starry_night_background_image_url: image_url("themes/starry-night/background.png");
 $themes_starry_night_background_2_image_url: image_url("themes/starry-night/background-contrast.png");
 
@@ -62,9 +62,39 @@ body.starry-night {
   /******************
    *  Text Accents  */
   
-  .accent { background-image: $themes_starry_night_accent_image_url; }
-  .accent-2 { background-image: $themes_starry_night_accent_2_image_url; }
-  .warning { background-image: $themes_starry_night_exclamation_image_url }
+  &.mobile #primary-nav li, &.mobile #secondary-nav li {
+    &.accent, &.accent-2, &.warning {
+      &::before { top: 2px };
+      
+      &:first-child::before { content: "" };
+    } // .mobile #primary-nav li[.accent, .accent-2, .warning]
+  } // .mobile // #primary-nav li
+  
+  #primary-nav li {
+    &.accent, &.accent-2, &.warning {
+      &::before { top: -1px };
+    
+      &:first-child::before { content: "" };
+    } // #primary-nav li[.accent, .accent-2, .warning]
+  } // #primary-nav li
+  
+  .accent::before {
+    @include themes-solarized-accent;
+    
+    content: url($themes_starry_night_accent_image_path);
+  } // .accent
+  
+  .accent-2::before {
+    @include themes-solarized-accent;
+    
+    content: url($themes_starry_night_accent_2_image_path);
+  } // .accent-2::before
+  
+  .warning::before {
+    @include themes-solarized-accent;
+    
+    content: url($themes_starry_night_exclamation_image_path);
+  } // .warning::before
 
   .error-box {
     @include notice-box;
@@ -98,10 +128,13 @@ body.starry-night {
   /***********
    *  Forms  */
    
-  .safe-button { background-image: $themes_starry_night_accent_image_url; }
-  .warning-button { background-image: $themes_starry_night_accent_2_image_url; }
-  .danger-button {
-    background-image: $themes_starry_night_exclamation_image_url;
-    background-position: 3px 7px;
-  } // body.starry-night danger-button
+  .safe-button::before {
+      content: url($themes_starry_night_accent_image_path);
+  }
+  .warning-button::before {
+      content: url($themes_starry_night_accent_2_image_path);
+  }
+  .danger-button::before {
+      content: url($themes_starry_night_exclamation_image_path);
+  }
 } // body.starry-night

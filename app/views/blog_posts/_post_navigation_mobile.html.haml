@@ -8,24 +8,24 @@
 - last_post  = post.last_post
 
 %div
-  %p.no-margin{ :style => "float: left; width: 25%;" }
+  %p.no-margin{ :style => "float: left; width: 35%;" }
     - if prev_post.nil?
-      = lighten "First Post"
+      = lighten "First"
       |
-      = lighten "Previous"
+      = lighten "Prev"
     - else
-      = link_to "First Post", "/blog/posts/#{first_post.slug}"
+      = link_to "First", "/blog/posts/#{first_post.slug}"
       |
-      = link_to "Previous", "/blog/posts/#{prev_post.slug}"
-  %p.no-margin{ :style => "float: right; text-align: right; width: 25%;" }
+      = link_to "Prev", "/blog/posts/#{prev_post.slug}"
+  %p.no-margin{ :style => "float: right; text-align: right; width: 35%;" }
     - if next_post.nil?
       = lighten "Next"
       |
-      = lighten "Latest Post"
+      = lighten "Latest"
     - else
       = link_to "Next", "/blog/posts/#{next_post.slug}"
       |
-      = link_to "Latest Post", "/blog/posts/#{last_post.slug}"
+      = link_to "Latest", "/blog/posts/#{last_post.slug}"
   %p.no-margin{ :style => "text-align: center;" }
-    = link_to "Back to #{blog.title}", "/blog/"
+    = link_to "Back to Blog", "/blog/"
   %br{ :style => "clear: both;" }

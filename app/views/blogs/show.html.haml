@@ -6,26 +6,25 @@
 %h1= @blog.title
 %p= @blog.summary
 
-= render 'page_navigation'
+= render mobile? ? 'page_navigation_mobile' : 'page_navigation'
 
-%ul.no-margin
-  - @posts.each do |post|
-    %li.accent
-      %hgroup
-        %h4
-          = link_to post.title, "/blog/posts/#{post.slug}"
-        - unless post.subtitle.nil?
-          %h5.subtitle= post.subtitle
-      %p
-        Posted
-        = post.published_at.strftime("%A, %B %-d at %H:%M %Z")
-        by
-        - if post.author
-          = ascii_escape post.author.name
-        - else
-          = lighten("(no author)")
-      .post-preview
-        = render 'blog_posts/contents', :post => post, :charlimit => 1000,
-          :terminator => "... #{link_to "(Read More)", "/blog/#{post.slug}"}"
+- @posts.each do |post|
+  %div
+    %hgroup
+      %h4
+        = link_to post.title, "/blog/posts/#{post.slug}"
+      - unless post.subtitle.nil?
+        %h5.subtitle= post.subtitle
+    %p
+      Posted
+      = post.published_at.strftime("%A, %B %-d at %H:%M %Z")
+      by
+      - if post.author
+        = ascii_escape post.author.name
+      - else
+        = lighten("(no author)")
+    .post-preview
+      = render 'blog_posts/contents', :post => post, :charlimit => mobile? ? 300 : 1000,
+        :terminator => "... #{link_to "(Read More)", "/blog/posts/#{post.slug}"}"
           
-= render 'page_navigation'
+= render mobile? ? 'page_navigation_mobile' : 'page_navigation'

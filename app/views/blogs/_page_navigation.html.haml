@@ -5,7 +5,7 @@
 - max_pages ||= (@posts_count / 5.0).floor
 
 %div
-  %p{ :style => "float: left; width: 25%;" }
+  %p.no-margin{ :style => "float: left; width: 25%;" }
     - if max_pages == current_page
       = lighten "First Page"
       |
@@ -14,7 +14,7 @@
       = link_to "First Page", "/blog/pages/#{max_pages}"
       |
       = link_to "Previous", "/blog/pages/#{current_page + 1}"
-  %p{ :style => "float: right; text-align: right; width: 25%;" }
+  %p.no-margin{ :style => "float: right; text-align: right; width: 25%;" }
     - if 0 == current_page
       = lighten "Next"
       |
@@ -23,5 +23,6 @@
       = link_to "Next", "/blog/pages/#{current_page - 1}"
       |
       = link_to "Latest Page", "/blog/pages/0"
-  %p{ :style => "text-align: center;" }
+  %p.no-margin{ :style => "text-align: center;" }
     = blog.title
+  %br{ :style => "clear: both;" }

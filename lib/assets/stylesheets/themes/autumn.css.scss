@@ -2,11 +2,11 @@
 
 @import 'mixins/solarized';
 
-$themes_autumn_accent_image_url: image_url("themes/autumn/apple-red.png");
-$themes_autumn_accent_2_image_url: image_url("themes/autumn/apple-green.png");
-$themes_autumn_exclamation_image_url: image_url("themes/autumn/exclamation-mark.png");
-$themes_autumn_background_image_url: image_url("themes/autumn/background.png");
-$themes_autumn_background_2_image_url: image_url("themes/autumn/background-contrast.png");
+$themes_autumn_accent_image_path: "themes/autumn/apple-red.png";
+$themes_autumn_accent_2_image_path: "themes/autumn/apple-green.png";
+$themes_autumn_exclamation_image_path: "themes/autumn/exclamation-mark.png";
+$themes_autumn_background_image_path: "themes/autumn/background.png";
+$themes_autumn_background_2_image_path: "themes/autumn/background-contrast.png";
 
 @mixin notice-box {
   margin: 20px 0;
@@ -31,7 +31,7 @@ body.autumn {
   background-color: $base3;
   
   #wrapper {
-    background-image: $themes_autumn_background_image_url;
+    background-image: image_url($themes_autumn_background_image_path);
   } // body.day #wrapper
   
   /****************
@@ -62,9 +62,39 @@ body.autumn {
   /******************
    *  Text Accents  */
   
-  .accent { background-image: $themes_autumn_accent_image_url; }
-  .accent-2 { background-image: $themes_autumn_accent_2_image_url; }
-  .warning { background-image: $themes_autumn_exclamation_image_url; }
+   &.mobile #primary-nav li, &.mobile #secondary-nav li {
+     &.accent, &.accent-2, &.warning {
+       &::before { top: 2px };
+
+       &:first-child::before { content: "" };
+     } // .mobile #primary-nav li[.accent, .accent-2, .warning]
+   } // .mobile // #primary-nav li
+
+   #primary-nav li {
+     &.accent, &.accent-2, &.warning {
+       &::before { top: -1px };
+
+       &:first-child::before { content: "" };
+     } // #primary-nav li[.accent, .accent-2, .warning]
+   } // #primary-nav li
+
+   .accent::before {
+     @include themes-solarized-accent;
+
+     content: url($themes_autumn_accent_image_path);
+   } // .accent
+
+   .accent-2::before {
+     @include themes-solarized-accent;
+
+     content: url($themes_autumn_accent_2_image_path);
+   } // .accent-2::before
+
+   .warning::before {
+     @include themes-solarized-accent;
+
+     content: url($themes_autumn_exclamation_image_path);
+   } // .warning::before
   
   .error-box {
     @include notice-box;
@@ -98,10 +128,13 @@ body.autumn {
   /***********
    *  Forms  */
   
-  .safe-button { background-image: $themes_autumn_accent_2_image_url }
-  .warning-button { background-image: $themes_autumn_accent_image_url; }
-  .danger-button {
-    background-image: $themes_autumn_exclamation_image_url;
-    background-position: 5px 9px;
-  } // body.autumn danger-button
+   .safe-button::before {
+       content: url($themes_autumn_accent_image_path);
+   }
+   .warning-button::before {
+       content: url($themes_autumn_accent_2_image_path);
+   }
+   .danger-button::before {
+       content: url($themes_autumn_exclamation_image_path);
+   }
 } // body.autumn

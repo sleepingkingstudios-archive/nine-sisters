@@ -29,13 +29,14 @@
     
     = csrf_meta_tags
     
-  %body{ :class => Setting[:"default-theme"] }
+  %body{ :class => "#{Setting[:"default-theme"]} #{mobile? ? :mobile : :desktop}" }
     #wrapper
       %header#page-header
         %h1= Setting[:title]
         
-        %nav#top-nav
-          = navigation_items :wrapper => {:tag => 'li', :class => 'accent'}
+        %nav#primary-nav
+          %ul
+            = navigation_items :wrapper => {:tag => 'li', :class => 'accent'}
           
         = yield :page_header
       
@@ -44,18 +45,22 @@
         
         = yield
         
-      %nav#primary-nav
-        %h2 Navigation
+      %nav#secondary-nav
+        - unless mobile?
+          %h2 Navigation
         
         %ul
           = navigation_items :wrapper => {:tag => 'li', :class => 'accent'}
         
-        %h4 Contact
+        - unless mobile?
+          %h4 Contact
         #navigation-contact
-          %p.no-margin Email the author at:
-          
-          :markdown
-            <merlin@sleepingkingstudios.com>
+          %p.no-margin
+            Email the author at:
+            - unless mobile?
+              %br
+            :markdown
+              <merlin@sleepingkingstudios.com>
         :javascript
           jQuery('#navigation-contact').find('.redcarpet').children('p').children('a').addClass('accent');
         
@@ -79,19 +84,28 @@
             %br
             = link_to "Log Out", session_path, :method => :delete, :class => :accent
 
-      %br{:style => "clear: both;"}
+      - if mobile?
+        %footer#page-footer
+          #footer-container
+            - unless (content = (yield :page_footer)).empty?
+              = content
+            - else
+              %p.tagline Hic Iacet Arthurus, Rex Quondam, Rexque Futuris
+      - else
+        %br{:style => "clear: both;"}
+        
+        #fake-footer &nbsp;
     
-      #fake-footer &nbsp;
-    
-    %footer#page-footer
-      #footer-container
-        - unless (content = (yield :page_footer)).empty?
-          = content
-        - else
-          %h5.tagline Hic Iacet Arthurus, Rex Quondam, Rexque Futuris
-    
-    :javascript
-      var height = jQuery('#page-footer').height();
-      jQuery('#fake-footer').css('height', height + 'px');
-      jQuery('#wrapper').css('margin-bottom', -height + 'px');
-      // jQuery('#wrapper').css('background-attachment', 'fixed');
+    - unless mobile?
+      %footer#page-footer
+        #footer-container
+          - unless (content = (yield :page_footer)).empty?
+            = content
+          - else
+            %h5.tagline Hic Iacet Arthurus, Rex Quondam, Rexque Futuris
+        
+        :javascript
+          var height = jQuery('#page-footer').height();
+          jQuery('#fake-footer').css('height', height + 'px');
+          jQuery('#wrapper').css('margin-bottom', -height + 'px');
+          // jQuery('#wrapper').css('background-attachment', 'fixed');

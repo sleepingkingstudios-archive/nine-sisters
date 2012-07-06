@@ -1,4 +1,4 @@
-/*  lib/assets/stylesheets/desktop/text.css.scss  */
+/* lib/assets/stylesheets/mobile/text.css.scss */
 
 @import './dimensions';
 
@@ -104,24 +104,18 @@ ul {
 /********************
  *  Top Navigation  */
 
-nav#primary-nav {
-  @extend .base-heading;
-  
+nav#primary-nav, nav#secondary-nav {
   margin-top: 5px;
   
+  font-size: $body_font_size;
+  line-height: $body_line_height;
   text-align: center;
   
   li {
     display: inline-block;
     
-    font-size: nth($heading_font_size, 3);
-    line-height: nth($heading_line_height, 3);
-    
-    &:first-child {
-      background-image: none;
-      padding-left: 0;
-    } // nav#primary-nav li:first-child
-  }
+    font-weight: bold;
+  } // nav#primary-nav li
 } // nav#primary-nav
 
 /************
