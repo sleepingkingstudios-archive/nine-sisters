@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120513213658) do
+ActiveRecord::Schema.define(:version => 20120708202822) do
 
   create_table "article_versions", :force => true do |t|
     t.string   "title"
@@ -87,6 +87,22 @@ ActiveRecord::Schema.define(:version => 20120513213658) do
     t.string   "value"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "taggings", :force => true do |t|
+    t.integer  "tag_id"
+    t.integer  "taggable_id"
+    t.string   "taggable_type"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  create_table "tags", :force => true do |t|
+    t.string   "title"
+    t.string   "slug"
+    t.boolean  "slug_lock"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|

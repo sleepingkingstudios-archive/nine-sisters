@@ -25,6 +25,9 @@ class BlogPost < ActiveRecord::Base
   belongs_to :author, :class_name => User
   belongs_to :blog
   
+  has_many :taggings, :as => :taggable
+  has_many :tags, :through => :taggings
+  
   validates :title, :presence => true
   validates :slug, :uniqueness => { :scope => :blog_id }
   validates :format,
