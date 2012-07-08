@@ -24,4 +24,8 @@ class BlogPostsController < ApplicationController
     end # begin-rescue-end
   end # helper find_post_by_field
   private :find_post_by_field
+  
+  def close_tags(html_string)
+    
+  end # method close_tags
 end # controller BlogPostsController
