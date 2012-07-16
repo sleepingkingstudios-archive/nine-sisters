@@ -49,8 +49,6 @@ class Admin::BlogPostsController < ApplicationController
   
   # PUT /admin/blogs/:blog_id/posts/:id
   def update
-    preprocess_tags
-    
     if @post.update_attributes(params[:blog_post])
       append_flash :notice, "Post was successfully updated", true
       redirect_to admin_blog_post_path(@blog, @post)
@@ -62,12 +60,15 @@ class Admin::BlogPostsController < ApplicationController
   ###############
   # PREPROCESSING
   
-  def preprocess_tags
-    tags = (params[:blog_post][:tags] || []).split(",").map { |tag|
+  def preprocess_tags(attributes = nil)
+    attributes ||= params[:blog_post]
+    return if attributes[:tags].is_a? Array
+    
+    tags = (attributes[:tags] || []).split(",").map { |tag|
       Tag.find_by_title(tag.strip)
     }.compact
     
-    params[:blog_post][:tags] = tags
+    attributes[:tags] = tags
   end # helper preprocess_tags
   private :preprocess_tags
   
@@ -81,6 +82,8 @@ class Admin::BlogPostsController < ApplicationController
   def build_post(attributes = nil)
     attributes ||= params[:blog_post]
     attributes[:author_id] ||= current_user.id if attributes
+    
+    preprocess_tags(attributes)
     
     @post = (@blog || find_blog).posts.build(attributes)
   end # helper build_post
