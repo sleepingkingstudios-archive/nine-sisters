@@ -43,6 +43,10 @@
 
 = render mobile? ? 'page_navigation_mobile' : 'page_navigation'
 
+- if 0 == @posts.count && !@tag.nil?
+  %p
+    There are no posts with tag &ldquo;#{@tag.title}&rdquo;.
+
 - @posts.each do |post|
   %div
     %hgroup

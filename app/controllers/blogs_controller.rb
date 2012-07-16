@@ -16,7 +16,7 @@ class BlogsController < ApplicationController
   end # helper find_tag
   
   def find_tags
-    @tags = Tag.all
+    @tags = Tag.order(:title)
   end # helper find_tags
   
   def find_posts
