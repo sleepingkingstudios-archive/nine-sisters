@@ -3,6 +3,7 @@
 - blog ||= @blog
 - current_page ||= params[:page_id].to_i || 0
 - max_pages ||= (@posts_count / 5.0).floor
+- link_root = params[:tag] ? "/blog/tags/#{params[:tag]}/pages" : "/blog/pages"
 
 %div
   %p.no-margin{ :style => "float: left; width: 30%;" }
@@ -11,18 +12,18 @@
       |
       = lighten "Prev"
     - else
-      = link_to "First", "/blog/pages/#{max_pages}"
+      = link_to "First", "#{link_root}/#{max_pages}"
       |
-      = link_to "Prev", "/blog/pages/#{current_page + 1}"
+      = link_to "Prev", "#{link_root}/#{current_page + 1}"
   %p.no-margin{ :style => "float: right; text-align: right; width: 30%;" }
     - if 0 == current_page
       = lighten "Next"
       |
       = lighten "Latest"
     - else
-      = link_to "Next", "/blog/pages/#{current_page - 1}"
+      = link_to "Next", "#{link_root}/#{current_page - 1}"
       |
-      = link_to "Latest", "/blog/pages/0"
+      = link_to "Latest", "#{link_root}/0"
   %p.no-margin{ :style => "text-align: center;" }
     = blog.title
   %br{ :style => "clear: both;" }

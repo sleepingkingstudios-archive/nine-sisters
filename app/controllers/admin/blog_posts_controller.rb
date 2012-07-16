@@ -5,6 +5,8 @@ class Admin::BlogPostsController < ApplicationController
   
   # POST /admin/blogs/:blog_id/posts
   def create
+    preprocess_tags
+    
     if @post.save
       append_flash :notice, "Post was successfully created", true
       redirect_to admin_blog_post_path(@blog, @post)
@@ -47,6 +49,8 @@ class Admin::BlogPostsController < ApplicationController
   
   # PUT /admin/blogs/:blog_id/posts/:id
   def update
+    preprocess_tags
+    
     if @post.update_attributes(params[:blog_post])
       append_flash :notice, "Post was successfully updated", true
       redirect_to admin_blog_post_path(@blog, @post)
@@ -55,9 +59,20 @@ class Admin::BlogPostsController < ApplicationController
     end # if-else
   end # action update
   
-  ##################
-  # HELPER METHODS #
-  ##################
+  ###############
+  # PREPROCESSING
+  
+  def preprocess_tags
+    tags = (params[:blog_post][:tags] || []).split(",").map { |tag|
+      Tag.find_by_title(tag.strip)
+    }.compact
+    
+    params[:blog_post][:tags] = tags
+  end # helper preprocess_tags
+  private :preprocess_tags
+  
+  ################
+  # HELPER METHODS
   
   def find_blog
     @blog = Blog.find(params[:blog_id])

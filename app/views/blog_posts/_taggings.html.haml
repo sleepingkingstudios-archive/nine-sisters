@@ -1,0 +1,14 @@
+-# app/views/blog_posts/_taggings.html.haml
+
+/ %h2 BlogPost::_taggings
+/ %p Find me at app/views/blog_posts/_taggings.html.haml
+
+- post ||= @post
+- tags = @post.tags
+
+%p
+  %strong Tags:
+  - if tags.empty?
+    = lighten "(none)"
+  - else
+    = tags.map { |tag| link_to tag.title, "/blog/tags/#{tag.slug}", :title => "Show Posts with tag #{tag.title}" }.join(", ").html_safe

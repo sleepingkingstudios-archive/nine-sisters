@@ -1,0 +1,18 @@
+-# app/views/tags/index.html.haml
+
+/ %h1 Tags#index
+/ %p Find me at app/views/tags/index.html.haml
+
+%h1= @blog.title
+%p= @blog.summary
+
+%h2 Content Tags
+%p
+  Posts in #{@blog.title} have been tagged with the following content tags:
+%ul
+  - @tags.each do |tag|
+    - count = tag.blog_posts.count
+    - if count > 0
+      %li.accent-2 #{link_to tag.title, "/blog/tags/#{tag.slug}"} (#{count} #{"post".pluralize count})
+
+%p= link_to "Back to #{@blog.title}", "/blog", :class => :accent

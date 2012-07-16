@@ -55,6 +55,9 @@
         %td= form.label :slug, "Slug:"
         %td= form.text_field :slug, :disabled => true
       %tr
+        %td= form.label :tags, "Tags:"
+        %td= form.text_field :tags, :value => @post.tags.map(&:title).join(",")
+      %tr
         %td= form.label :format, "Format:"
         %td= form.select :format, options_for_select(BlogPost.formats, post.format || "redcarpet")
       %tr

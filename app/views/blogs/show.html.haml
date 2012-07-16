@@ -3,8 +3,43 @@
 / %h1 Blogs#show
 / %p Find me at app/views/blogs/show.html.haml
 
+- unless 0 == @tags.count
+  = content_for :javascripts do
+    :javascript
+      jQuery(document).ready(function(){
+        jQuery('.tag-search-link').click(function(event){
+          event.preventDefault();
+          
+          var area = jQuery('.tag-search-area');
+          var self = jQuery(this);
+          if('none' == area.css('display')) {
+            area.show(300);
+            self.text("Hide Tags");
+          } else {
+            area.hide(300);
+            self.text("Show Tags");
+          } // end if-else
+        }); // end click
+      }); // end ready
+
 %h1= @blog.title
 %p= @blog.summary
+
+%p
+  - unless @tag.nil?
+    Showing posts with tag &ldquo;#{@tag.title}&rdquo;.
+    #{link_to "Show All Results", "/blog", :class => :"accent-2"}
+
+- unless 0 == @tags.count
+  %p
+    %strong Filter Posts By Tag:
+    = link_to "Show Tags", "/blog/tags", :class => :"accent-2 tag-search-link"
+    
+  %div.tag-search-area{ :style => "display: none; padding-left: 20px;" }
+    %ul
+      - @tags.each do |tag|
+        %li.accent{ :style => "display: inline-block;" }
+          = link_to tag.title, "/blog/tags/#{tag.slug}"
 
 = render mobile? ? 'page_navigation_mobile' : 'page_navigation'
 
@@ -25,6 +60,6 @@
         = lighten("(no author)")
     .post-preview
       = render 'blog_posts/contents', :post => post, :charlimit => mobile? ? 300 : 1000,
-        :terminator => "... #{link_to "(Read More)", "/blog/posts/#{post.slug}"}"
+        :terminator => "<p>#{link_to "Read More", "/blog/posts/#{post.slug}", :class => :accent}</p>"
           
 = render mobile? ? 'page_navigation_mobile' : 'page_navigation'
