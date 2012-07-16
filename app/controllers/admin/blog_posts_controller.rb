@@ -62,7 +62,7 @@ class Admin::BlogPostsController < ApplicationController
   
   def preprocess_tags(attributes = nil)
     attributes ||= params[:blog_post]
-    return if attributes[:tags].is_a? Array
+    return if attributes.nil? || attributes[:tags].is_a?(Array)
     
     tags = (attributes[:tags] || []).split(",").map { |tag|
       Tag.find_by_title(tag.strip)
