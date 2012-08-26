@@ -1,0 +1,39 @@
+-# app/views/admin/tags/show.html.haml
+
+%hgroup
+  %h1 Content Tags
+  %h2= @tag.title
+  
+%p
+  %strong ID:
+  = @tag.id
+  %br
+  %strong Title:
+  = @tag.title
+  %br
+  %strong Slug:
+  = @tag.slug
+
+%h3 Taggings
+
+- if @tag.taggings.empty?
+  %p= lighten("no taggings")
+- else
+  %table
+    %thead
+      %tr
+        %th ID
+        %th Type
+        %th Content
+    %tbody
+      - @tag.taggings.each do |tagging|
+        %tr
+          %td= tagging.id
+          %td= tagging.taggable_type
+          %td
+            - tagged = tagging.taggable
+            - map = Tagging.type_map[tagging.taggable_type]
+            - ary = map[:path].dup
+            = link_to tagged.send(map[:title]), self.send(ary.shift, *ary.map {|key| tagged.send key })
+
+%p= link_to "Back To Tags", admin_tags_path, :class => :accent

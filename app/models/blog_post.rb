@@ -27,6 +27,10 @@ class BlogPost < ActiveRecord::Base
   
   has_many :taggings, :as => :taggable
   has_many :tags, :through => :taggings
+  Tagging.type_map[self.to_s] = {
+    :title => :title,
+    :path  => [:admin_blog_post_path, :blog_id, :id]
+  } # end anonymous object
   
   validates :title, :presence => true
   validates :slug, :uniqueness => { :scope => :blog_id }
@@ -95,3 +99,9 @@ class BlogPost < ActiveRecord::Base
   end # method to_slug
   private :to_slug
 end # model BlogPost
+
+require 'tag'
+
+class Tag < ActiveRecord::Base
+  has_many :blog_posts, :through => :taggings, :source => :taggable, :source_type => BlogPost
+end # model Tag

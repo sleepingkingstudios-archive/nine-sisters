@@ -15,8 +15,11 @@ NineSisters::Application.routes.draw do
       end # resources posts
     end # resources blogs
     
-    resources :categories, :only => %w(create destroy edit index new show update)
+    resources :tags, :only => %w(create edit index new show update)
+    
     resources :settings, :only => %w(create index)
+    
+    # resources :categories, :only => %w(create destroy edit index new show update)
   end # namespace
   
   # resources :articles, :only => %w(show)

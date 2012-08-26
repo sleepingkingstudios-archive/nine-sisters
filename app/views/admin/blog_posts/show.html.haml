@@ -33,7 +33,7 @@
   - if @post.tags.count == 0
     = lighten('(no tags)')
   - else
-    = @post.tags.map(&:title).join(", ")
+    = @post.tags.map{|tag| link_to tag.title, admin_tag_path(tag)}.join(", ").html_safe
   
 - case @post.format
 - when "plain-text"

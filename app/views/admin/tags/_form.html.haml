@@ -1,0 +1,51 @@
+-# app/views/admin/tags/_form.html.haml
+
+/ %h2 Admin::Tags#_form
+/ %p Find me at app/views/admin/tags/_form.html.haml
+
+:javascript
+  jQuery(document).ready(function(event){
+    jQuery('a.submit-link').click(function(event){
+      var self = jQuery(this);
+      self.siblings("input[type=submit]").click();
+      event.preventDefault();
+    }); // end click
+    
+    jQuery('a.cancel-link').click(function(event){
+      jQuery.colorbox.close();
+      event.preventDefault();
+    }); // end click
+  }); // end document.ready
+
+- tag ||= @tag
+= form_for [:admin, tag] do |form|
+  - if tag.errors.any?
+    - messages = tag.errors.full_messages
+    %div.error-box
+      - if messages.count == 1
+        %p
+          %strong.label Error:
+          = messages.first
+      - else
+        %p
+          %strong.label Error:
+        %ul
+          - messages.each do |message|
+            %li= message
+  
+  %table{ :style => "margin-bottom: 0px; width: 300px;" }
+    %tbody
+      %tr
+        %td{ :style => "width: 50px;" }= label_tag "Title:"
+        %td= form.text_field :title, :class => :short
+      %tr
+        %td= label_tag "Slug:"
+        %td= form.text_field :slug, :class => :short, :disabled => :true
+      %tr
+        %td &nbsp;
+        %td
+          %br
+          = form.submit "Create", :style => "display: none;"
+          - link_label = "new" == request.filtered_parameters["action"] ? "Create" : "Update"
+          = link_to link_label, nil, :class => :"safe-button submit-link"
+          = link_to "Cancel", nil, :class => :"warning-button cancel-link"

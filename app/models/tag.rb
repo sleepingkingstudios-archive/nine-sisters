@@ -11,8 +11,9 @@ class Tag < ActiveRecord::Base
   #########################################
   # Associations, Validations and Callbacks
   
-  has_many :taggings
-  has_many :blog_posts, :through => :taggings, :source => :taggable, :source_type => BlogPost
+  has_many :taggings, :dependent => :destroy
+  
+  validates :title, :presence => true, :uniqueness => true
   
   ##################
   # Instance Methods

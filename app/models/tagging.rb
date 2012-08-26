@@ -13,4 +13,10 @@ class Tagging < ActiveRecord::Base
     :message => "has already been assigned",
     :scope => [:taggable_id, :taggable_type]
   } # end validation
+  
+  class << self
+    def type_map
+      @@type_map ||= {}
+    end # class method type_map
+  end # class << self
 end # model Tagging

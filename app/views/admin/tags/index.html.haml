@@ -1,0 +1,43 @@
+-# app/views/admin/tags/index.html.haml
+
+/ %h1 Admin::Tags#index
+/ %p Find me at app/views/admin/tags/index.html.haml
+
+:javascript
+  jQuery(document).ready(function(){
+    jQuery('.create-tag-link').colorbox({ title: " " });
+    jQuery('.update-tag-link').colorbox({ title: " " });
+  }); // end document.ready
+  
+/ - unless params[:tag].nil?
+/   :javascript
+/     jQuery(document).ready(function(){
+/       jQuery.colorbox({ inline: true, href: jQuery('#create-tag-form') })
+/     }); // end document.ready
+
+%h1 Content Tags
+
+%p= link_to "Create Tag", new_admin_tag_path, :class => [:accent, :"create-tag-link"],
+  :title => "Create Tag. This opens a popup dialog."
+
+%table
+  %thead
+    %tr
+      %th ID
+      %th Title
+      %th Slug
+      %th Taggings
+      %th &nbsp;
+      %th &nbsp;
+  %tbody
+    - @tags.each do |tag|
+      %tr
+        %td= tag.id
+        %td= link_to tag.title, admin_tag_path(tag)
+        %td= tag.slug
+        %td= tag.taggings.size
+        %td= link_to "Edit", edit_admin_tag_path(tag), :class => [:"warning-link", :"update-tag-link"]
+        %td= link_to "Delete", nil, :class => [:"danger-link"]
+
+%p= link_to "Create Tag", new_admin_tag_path, :class => [:accent, :"create-tag-link"],
+  :title => "Create Tag. This opens a popup dialog."
