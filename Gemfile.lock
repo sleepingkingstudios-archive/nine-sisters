@@ -1,12 +1,12 @@
 GIT
-  remote: git@github.com:sleepingkingstudios/acts_as_sluggable.git
+  remote: https://github.com/sleepingkingstudios/acts_as_sluggable.git
   revision: 09fb0058d79617e0fabc3957edf7eb88142a7098
   specs:
     acts_as_sluggable (0.1.1)
       rails (~> 3.2.1)
 
 GIT
-  remote: git@github.com:sleepingkingstudios/acts_as_tree.git
+  remote: https://github.com/sleepingkingstudios/acts_as_tree.git
   revision: b9b05bde56fb46975b9cf7e870ac5da11815f9f7
   specs:
     acts_as_tree (0.1.1)
