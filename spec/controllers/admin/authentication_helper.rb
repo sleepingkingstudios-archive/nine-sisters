@@ -1,7 +1,7 @@
 # spec/controllers/admin/authentication_helper.rb
 
 unless User.exists?(:email => "test@testificate.com")
-  User.create!(:email => "test@testificate.com", :password => "xyzzy", :password_confirmation => "xyzzy")
+  User.create(:email => "test@testificate.com", :password => "xyzzy", :password_confirmation => "xyzzy")
 end # unless
 
 shared_examples "requires authentication" do |controller, params = {}|

@@ -28,7 +28,12 @@ class Admin::BlogPostsController < ApplicationController
   def edit; end
   
   # GET /admin/blogs/:blog_id/posts
-  def index; end
+  def index
+    respond_to do |format|
+      format.html
+      format.json { render :json => @posts }
+    end # respond_to
+  end # action index
   
   # GET /admin/blogs/:blog_id/posts/new
   def new; end
